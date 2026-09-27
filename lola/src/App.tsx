@@ -9,6 +9,7 @@ import  Catalog  from './pages/Catalog/catalog';
 import  ProductDetail  from './pages/ProductDetail/productdetail';
 import  About  from './pages/About/about';
 import  Favorite  from './pages/Favorite/favorite';
+import Admin from './pages/Admin/admin';
 
 import './App.css';
 
@@ -21,13 +22,13 @@ export const App: React.FC = () => {
 
         {/* Основные страницы */}
         <main className="main-content">
-          <h1>Salom</h1>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/favorite" element={<Favorite />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
 

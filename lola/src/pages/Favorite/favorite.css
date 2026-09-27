@@ -1,0 +1,112 @@
+.favorite {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1a1a1a;
+}
+
+.favorite-header {
+  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+.favorite-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.favorite-subtitle {
+  font-size: 1.25rem;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.favorite-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 30px;
+}
+
+.empty-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #1a1a1a;
+}
+
+.empty-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+}
+
+.empty-button {
+  display: inline-block;
+  padding: 16px 40px;
+  background: #C44569;
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.empty-button:hover {
+  background: #FF6B9D;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .favorite-title {
+    font-size: 2rem;
+  }
+
+  .favorite-subtitle {
+    font-size: 1rem;
+  }
+
+  .favorite-header {
+    padding: 60px 20px;
+  }
+
+  .favorite-container {
+    padding: 40px 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .empty-icon {
+    font-size: 4rem;
+  }
+
+  .empty-title {
+    font-size: 1.5rem;
+  }
+
+  .empty-description {
+    font-size: 1rem;
+  }
+}

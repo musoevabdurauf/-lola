@@ -1,0 +1,220 @@
+.about {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1a1a1a;
+}
+
+.about-header {
+  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.about-subtitle {
+  font-size: 1.25rem;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.about-section {
+  margin-bottom: 60px;
+}
+
+.about-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+  color: #1a1a1a;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: #FF6B9D;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #1a1a1a;
+}
+
+.feature-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Principles List */
+.principles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.principle-item {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.principle-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #FF6B9D;
+  line-height: 1;
+  min-width: 60px;
+}
+
+.principle-content {
+  flex: 1;
+}
+
+.principle-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #1a1a1a;
+}
+
+.principle-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Contact Section */
+.contact-section {
+  background: #f9f9f9;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-icon {
+  font-size: 2rem;
+}
+
+.contact-details {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.contact-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  text-decoration: none;
+}
+
+.contact-value:hover {
+  color: #C44569;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-subtitle {
+    font-size: 1rem;
+  }
+
+  .about-header {
+    padding: 60px 20px;
+  }
+
+  .about-container {
+    padding: 40px 20px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .principle-item {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .principle-number {
+    min-width: auto;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+}
