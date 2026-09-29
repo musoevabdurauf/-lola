@@ -110,5 +110,19 @@
     "height": "80-90 см",
     "care": "Профессиональный уход",
     "image": ""
+  },
+  {
+    "id": "1790694545776",
+    "name": "Таъмини барномавӣ технологияи илтилоотӣ",
+    "price": "23",
+    "description": "ghjkl;",
+    "badge": "Хит продаж",
+    "isNew": false,
+    "isHit": false,
+    "category": "bukety",
+    "composition": "101 роза, упаковка",
+    "height": "60-70 см",
+    "care": "Обрезать стебли под углом, менять воду каждые 2-3 дня",
+    "image": "https://i.ibb.co/PszCrMpT/image.png"
   }
 ]
