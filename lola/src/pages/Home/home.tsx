@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import ProductCard from '../../components/ProductCard/productcard'
+import Api from '../../services/Api'
 import './home.css'
 
 const Home = () => {
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-
-  const API_URL = 'http://localhost:5000/api/products'
 
   useEffect(() => {
     fetchProducts()
@@ -16,8 +15,7 @@ const Home = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true)
-      const response = await fetch(API_URL)
-      const data = await response.json()
+      const data = await Api.getProducts()
       setProducts(data)
     } catch (error) {
       console.error('Error fetching products:', error)

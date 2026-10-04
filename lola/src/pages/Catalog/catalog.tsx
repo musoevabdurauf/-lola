@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import ProductCard from '../../components/ProductCard/productcard'
+import Api from '../../services/Api'
 import './catalog.css'
 
 const Catalog = () => {
   const [products, setProducts] = useState<any[]>([])
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const [sortBy, setSortBy] = useState('popular')
   const [loading, setLoading] = useState(true)
-
-  const API_URL = 'http://localhost:5000/api/products'
+  const [category, setCategory] = useState('all')
+  const [sortBy, setSortBy] = useState('popular')
 
   useEffect(() => {
     fetchProducts()
@@ -17,8 +16,7 @@ const Catalog = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true)
-      const response = await fetch(API_URL)
-      const data = await response.json()
+      const data = await Api.getProducts()
       setProducts(data)
     } catch (error) {
       console.error('Error fetching products:', error)
@@ -45,8 +43,8 @@ const Catalog = () => {
   ]
 
   const filteredProducts = products.filter(product => {
-    if (selectedCategory === 'all') return true
-    return product.category === selectedCategory
+    if (category === 'all') return true
+    return product.category === category
   })
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -79,13 +77,13 @@ const Catalog = () => {
           <div className="filter-section">
             <h3 className="filter-title">Категории</h3>
             <div className="filter-options">
-              {categories.map((category) => (
+              {categories.map((cat) => (
                 <button
-                  key={category.id}
-                  className={`filter-option ${selectedCategory === category.id ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(category.id)}
+                  key={cat.id}
+                  className={`filter-option ${category === cat.id ? 'active' : ''}`}
+                  onClick={() => setCategory(cat.id)}
                 >
-                  {category.name}
+                  {cat.name}
                 </button>
               ))}
             </div>
@@ -129,6 +127,7 @@ const Catalog = () => {
                 badge={product.badge}
                 isNew={product.isNew}
                 isHit={product.isHit}
+                image={product.image}
               />
             ))}
           </div>

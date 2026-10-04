@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Api from '../../services/Api'
 import './admin.css'
 
 interface Product {
@@ -17,7 +19,9 @@ interface Product {
 }
 
 const Admin = () => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [formData, setFormData] = useState<Partial<Product>>({
@@ -34,24 +38,35 @@ const Admin = () => {
     image: ''
   })
 
-  const API_URL = 'http://localhost:5000/api/products'
-
   useEffect(() => {
+    // Проверка авторизации
+    const isAdmin = localStorage.getItem('isAdmin')
+    if (!isAdmin) {
+      navigate('/login')
+      return
+    }
+
     fetchProducts()
-  }, [])
+  }, [navigate])
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdmin')
+    navigate('/login')
+  }
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(API_URL)
-      const data = await response.json()
+      setLoading(true)
+      const data = await Api.getProducts()
       setProducts(data)
     } catch (error) {
       console.error('Error fetching products:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
-  const handleCreate = () => {
-    setEditingProduct(null)
+  const resetForm = () => {
     setFormData({
       name: '',
       price: 0,
@@ -62,8 +77,14 @@ const Admin = () => {
       category: 'bukety',
       composition: '',
       height: '',
-      care: ''
+      care: '',
+      image: ''
     })
+    setEditingProduct(null)
+  }
+
+  const handleCreate = () => {
+    resetForm()
     setIsModalOpen(true)
   }
 
@@ -73,38 +94,31 @@ const Admin = () => {
     setIsModalOpen(true)
   }
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Вы уверены, что хотите удалить этот продукт?')) return
-
-    try {
-      await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-      fetchProducts()
-    } catch (error) {
-      console.error('Error deleting product:', error)
-    }
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
       if (editingProduct) {
-        await fetch(`${API_URL}/${editingProduct.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        })
+        await Api.updateProduct(editingProduct.id, formData)
       } else {
-        await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        })
+        await Api.createProduct(formData)
       }
-      fetchProducts()
+      await fetchProducts()
       setIsModalOpen(false)
+      resetForm()
     } catch (error) {
       console.error('Error saving product:', error)
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Вы уверены, что хотите удалить этот продукт?')) {
+      try {
+        await Api.deleteProduct(id)
+        await fetchProducts()
+      } catch (error) {
+        console.error('Error deleting product:', error)
+      }
     }
   }
 
@@ -116,13 +130,22 @@ const Admin = () => {
     })
   }
 
+  if (loading) {
+    return <div className="admin">Загрузка...</div>
+  }
+
   return (
     <div className="admin">
       <div className="admin-header">
         <h1 className="admin-title">Админ панель</h1>
-        <button className="admin-button" onClick={handleCreate}>
-          + Добавить продукт
-        </button>
+        <div className="admin-header-actions">
+          <button className="admin-button" onClick={handleCreate}>
+            + Добавить продукт
+          </button>
+          <button className="logout-button" onClick={handleLogout}>
+            🚪 Выйти
+          </button>
+        </div>
       </div>
 
       <div className="admin-table-container">

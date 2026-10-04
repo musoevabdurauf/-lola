@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import Api from '../../services/Api'
 import './productDetail.css'
 
 const ProductDetail = () => {
@@ -8,8 +9,6 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  const API_URL = 'http://localhost:5000/api/products'
-
   useEffect(() => {
     fetchProduct()
   }, [id])
@@ -17,18 +16,13 @@ const ProductDetail = () => {
   const fetchProduct = async () => {
     try {
       setLoading(true)
-      const response = await fetch(`${API_URL}/${id}`)
-      const data = await response.json()
+      const data = await Api.getProductById(id)
       setProduct(data)
     } catch (error) {
       console.error('Error fetching product:', error)
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleAddToCart = () => {
-    console.log('Added to cart:', product.id, quantity)
   }
 
   const handleQuantityChange = (delta: number) => {
