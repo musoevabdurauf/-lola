@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <img src="src/assets/Lola.png" alt="Lola" style={{ width: '100px', height: '100px', borderRadius: "50%"}} />
+          <img src="src/assets/Lola.png" alt="Lola" style={{ width: '70px', height: '70px', borderRadius: "50%"}} />
         </Link>
         
         <ul className="navbar-nav">
@@ -17,12 +17,14 @@ const Navbar = () => {
           <li><Link to="/admin" className="navbar-link admin-link">Админ</Link></li>
         </ul>
 
-        <div className="navbar-actions">
-          <Link to="/favorite" className="navbar-icon" title="Избранное">
+        <div className="navbar-actions" style={{display: "flex", placeContent: "center"}}>
+          <Link to="/favorite" className="navbar-icon" title="Избранное" style={{display: "flex",  placeItems: "center"}}>
             <img src="src/assets/heart.png" alt="heart" style={{ width: '30px', height: '30px' }} />
           </Link>
-          <a href="tel:+992750545471" className="navbar-phone">
-            <img src="src/assets/Call.png" alt="Call" style={{ width: '30px', height: '30px', marginRight: '10px' }} />+992 750 545 471</a>
+          <a href="tel:+992750545471" className="navbar-phone" style={{display: "flex", placeItems: "center"}}>
+            <img src="src/assets/Call.png" alt="Call" style={{ width: '30px', height: '30px', marginRight: '10px' }} />
+            <h1 style={{fontSize: "25px"}}>Заказать</h1>
+            </a>
         </div>
       </div>
     </nav>
