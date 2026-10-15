@@ -1,12 +1,30 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Api from '../../services/Api'
+import ProductImage from '../../components/ProductImage/productImage'
+import ProductInfo from '../../components/ProductInfo/productInfo'
+import ProductDetails from '../../components/ProductDetails/productDetails'
+import QuantitySelector from '../../components/QuantitySelector/quantitySelector'
+import OrderSection from '../../components/OrderSection/orderSection'
+import DeliveryInfo from '../../components/DeliveryInfo/deliveryInfo'
 import './productDetail.css'
 
 const ProductDetail = () => {
   const { id } = useParams()
   const [quantity, setQuantity] = useState(1)
-  const [product, setProduct] = useState<any>(null)
+  const [product, setProduct] = useState<{
+    id: string
+    name: string
+    price: number
+    badge?: string
+    isNew?: boolean
+    isHit?: boolean
+    image?: string
+    description: string
+    composition: string
+    height: string
+    care: string
+  } | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -43,107 +61,41 @@ const ProductDetail = () => {
     <div className="product-detail">
       <div className="product-detail-container">
         <Link to="/catalog" className="back-link">← Вернуться в каталог</Link>
-        
+
         <div className="product-content">
-          {/* Product Image */}
-          <div className="product-image-container">
-            {product.badge && (
-              <div className={`product-badge ${product.isHit ? 'hit' : ''} ${product.isNew ? 'new' : ''}`}>{product.badge}</div>
-            )}
-            <div 
-              className="product-image"
-              style={product.image ? { backgroundImage: `url(${product.image})` } : { background: 'linear-gradient(135deg, #FF6B9D, #C44569)' }}
-            ></div>
-          </div>
+          <ProductImage
+            image={product.image}
+            badge={product.badge}
+            isNew={product.isNew}
+            isHit={product.isHit}
+          />
 
-          {/* Product Info */}
-          <div className="product-info-container">
-            <div className="product-header">
-              <h1 className="product-title">{product.name}</h1>
-              <div className="product-meta">
-                {product.badge && (
-                  <span className={`product-meta-badge ${product.isNew ? 'new' : ''} ${product.isHit ? 'hit' : ''}`}>{product.badge}</span>
-                )}
-              </div>
-            </div>
-            <p className="product-price">{product.price.toLocaleString('ru-RU')} с.</p>
-            
-            <div className="product-description">
-              <h3 className="info-title">Описание</h3>
-              <p className="description-text">{product.description}</p>
-            </div>
+          <div className="product-info-wrapper">
+            <ProductInfo
+              name={product.name}
+              price={product.price}
+              badge={product.badge}
+              isNew={product.isNew}
+              isHit={product.isHit}
+              description={product.description}
+            />
 
-            <div className="product-details">
-              <div className="detail-item">
-                <span className="detail-label">🌸 Состав:</span>
-                <span className="detail-value">{product.composition}</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">📏 Высота:</span>
-                <span className="detail-value">{product.height}</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-label">💧 Уход:</span>
-                <span className="detail-value">{product.care}</span>
-              </div>
-            </div>
+            <ProductDetails
+              composition={product.composition}
+              height={product.height}
+              care={product.care}
+            />
 
             <div className="product-actions">
-              <div className="quantity-wrapper">
-                <span className="quantity-label">Количество:</span>
-                <div className="quantity-selector">
-                  <button 
-                    className="quantity-btn"
-                    onClick={() => handleQuantityChange(-1)}
-                    disabled={quantity <= 1}
-                  >
-                    −
-                  </button>
-                  <span className="quantity-value">{quantity}</span>
-                  <button 
-                    className="quantity-btn"
-                    onClick={() => handleQuantityChange(1)}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              
-              <div className="order-wrapper">
-                <div className="total-price">
-                  <span className="total-label">Итого:</span>
-                  <span className="total-amount">{totalPrice} с.</span>
-                </div>
-                <a href="tel:+992750545471" className="order-btn">
-                  <span className="order-icon">📞</span>
-                  Заказать
-                </a>
-              </div>
+              <QuantitySelector
+                quantity={quantity}
+                onQuantityChange={handleQuantityChange}
+              />
+
+              <OrderSection totalPrice={totalPrice} />
             </div>
 
-            <div className="delivery-info">
-              <div className="delivery-item">
-                <span className="delivery-icon">🚚</span>
-                <div className="delivery-text">
-                  <p className="delivery-title">Быстрая доставка</p>
-                  <p className="delivery-desc">Доставка по Душанбе за 2–3 часа</p>
-                </div>
-              </div>
-              <div className="delivery-item">
-                <span className="delivery-icon">📸</span>
-                <div className="delivery-text">
-                  <p className="delivery-title">Фото перед отправкой</p>
-                  <p className="delivery-desc">Отправим фото букета в WhatsApp</p>
-                </div>
-              </div>
-              <div className="delivery-item">
-                <span className="delivery-icon">💝</span>
-                <div className="delivery-text">
-                  <p className="delivery-title">Анонимная доставка</p>
-                  <p className="delivery-desc">Сделаем сюрприз получателю</p>
-                </div>
-              </div>
-            </div>
+            <DeliveryInfo />
           </div>
         </div>
       </div>

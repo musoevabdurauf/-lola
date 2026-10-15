@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-title">Lola</h3>
+            <h3 className="footer-title"><img src="src/assets/lola.png" alt="Lola" style={{width: "50px", borderRadius: "50%"}}/></h3>
             <p className="footer-description">
               Доставка цветов по Душанбе за 2–3 часа. Заявка через WhatsApp — быстрое подтверждение.
             </p>
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p className="footer-copyright"> 2024 Lola. Все права защищены.</p>
+          <p className="footer-copyright"> 2026 Lola. Все права защищены.</p>
         </div>
       </div>
     </footer>

@@ -1,0 +1,54 @@
+.product-image-container {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.product-badge {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(255, 107, 157, 0.4);
+}
+
+.product-badge.new {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.product-badge.hit {
+  background: linear-gradient(135deg, #FF6B9D, #C44569);
+}
+
+.product-image {
+  width: 100%;
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.4s ease;
+}
+
+.product-image-container:hover .product-image {
+  transform: scale(1.03);
+}
+
+@media (max-width: 1024px) {
+  .product-image {
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-image {
+    height: 350px;
+  }
+}

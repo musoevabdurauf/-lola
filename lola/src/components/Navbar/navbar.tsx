@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <img src="src/assets/Lola.png" alt="Lola" style={{ width: '70px', height: '70px', borderRadius: "50%"}} />
+          <img src="src/assets/Lola.png" alt="Lola" style={{ width: '100px', height: '60px'}} />
         </Link>
         
         <ul className="navbar-nav">

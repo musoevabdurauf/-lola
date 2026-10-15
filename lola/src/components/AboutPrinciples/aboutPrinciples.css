@@ -1,0 +1,134 @@
+.about-section {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1a1a1a;
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.principles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.principle-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  background: white;
+  border: 2px solid rgba(255, 107, 157, 0.15);
+  border-radius: 20px;
+  padding: 35px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.principle-item:hover {
+  border-color: #FF6B9D;
+  transform: translateX(10px);
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.15);
+}
+
+.principle-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
+.principle-content {
+  flex: 1;
+}
+
+.principle-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+  transition: color 0.3s ease;
+}
+
+.principle-item:hover .principle-title {
+  color: #C44569;
+}
+
+.principle-text {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 40px 15px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .principles-list {
+    gap: 20px;
+  }
+
+  .principle-item {
+    padding: 25px 20px;
+    gap: 20px;
+  }
+
+  .principle-number {
+    font-size: 2rem;
+    min-width: 50px;
+  }
+
+  .principle-title {
+    font-size: 1.1rem;
+  }
+}
