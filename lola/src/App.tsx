@@ -19,28 +19,35 @@ import './App.css';
 export const App: React.FC = () => {
   return (
     <Router>
-      <div className="app-container">
-        {/* Верхнее меню навигации */}
-        <Navbar />
+      <Routes>
+        {/* Admin route - separate from main layout */}
+        <Route path="/admin" element={<Admin />} />
 
-        {/* Основные страницы */}
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/delivery" element={<Delivery />} />
-            <Route path="/favorite" element={<Favorite />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
+        {/* Main app with Navbar and Footer */}
+        <Route path="*" element={
+          <div className="app-container">
+            {/* Верхнее меню навигации */}
+            <Navbar />
 
-        {/* Подвал сайта */}
-        <Footer />
-      </div>
+            {/* Основные страницы */}
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/catalog" element={<Catalog />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/delivery" element={<Delivery />} />
+                <Route path="/favorite" element={<Favorite />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+
+            {/* Подвал сайта */}
+            <Footer />
+          </div>
+        } />
+      </Routes>
     </Router>
   );
 };
