@@ -1,6 +1,6 @@
 .footer {
-  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
-  color: white;
+  background-color: white;
+  color: black;
   padding: 60px 20px 30px;
 }
 
@@ -25,7 +25,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: white;
+  color: black;
 }
 
 .footer-description {
@@ -46,7 +46,7 @@
 }
 
 .footer-links a {
-  color: white;
+  color: black;
   text-decoration: none;
   transition: opacity 0.3s ease;
   opacity: 0.9;
@@ -110,4 +110,23 @@
   .footer-title {
     font-size: 1.3rem;
   }
+}
+.lll {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;   /* отступ до абзаца ниже */
+}
+.lll p {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
+  border-radius: 50%;
+  background-color: red;
+  font-size: 1.2rem;      /* без пробела: 1.6rem, а не 1.6 rem */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  
 }

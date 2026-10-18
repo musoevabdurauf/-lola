@@ -7,7 +7,10 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-title"><img src="src/assets/lola.png" alt="Lola" style={{width: "50px", borderRadius: "50%"}}/></h3>
+            <div className='lll'>
+              <p>L</p>
+              <h3>Lola</h3>
+              </div>
             <p className="footer-description">
               Доставка цветов по Душанбе за 2–3 часа. Заявка через WhatsApp — быстрое подтверждение.
             </p>
