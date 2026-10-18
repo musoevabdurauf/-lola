@@ -10,10 +10,17 @@ const Catalog = () => {
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('all')
   const [sortBy, setSortBy] = useState('popular')
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+  const [visibleCount, setVisibleCount] = useState(20)
 
   useEffect(() => {
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    setVisibleCount(20)
+  }, [category])
 
   const fetchProducts = async () => {
     try {
@@ -30,6 +37,12 @@ const Catalog = () => {
   const filteredProducts = products.filter(product => {
     if (category === 'all') return true
     return product.category === category
+  }).filter(product => {
+    if (!minPrice && !maxPrice) return true
+    const price = product.price
+    if (minPrice && price < Number(minPrice)) return false
+    if (maxPrice && price > Number(maxPrice)) return false
+    return true
   })
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -49,6 +62,13 @@ const Catalog = () => {
     return <div className="catalog">Загрузка...</div>
   }
 
+  const visibleProducts = sortedProducts.slice(0, visibleCount)
+  const hasMore = sortedProducts.length > visibleCount
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 20)
+  }
+
   return (
     <div className="catalog">
       <CatalogHeader />
@@ -58,8 +78,18 @@ const Catalog = () => {
           setCategory={setCategory}
           sortBy={sortBy}
           setSortBy={setSortBy}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          onApplyPriceFilter={() => {}}
         />
-        <CatalogGrid products={sortedProducts} />
+        <CatalogGrid products={visibleProducts} />
+        {hasMore && (
+          <button className="load-more-btn" onClick={loadMore}>
+            Показать еще
+          </button>
+        )}
       </div>
     </div>
   )

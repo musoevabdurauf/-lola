@@ -3,16 +3,18 @@
   color: #1a1a1a;
   background: white;
   border-radius: 20px;
-  padding: 30px;
+  padding: 25px;
   border: 2px solid rgba(255, 107, 157, 0.1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   height: fit-content;
   position: sticky;
   top: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .filter-section {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .filter-section:last-child {
@@ -29,24 +31,33 @@
   gap: 10px;
 }
 
-.filter-title::before {
-  content: '';
-  width: 4px;
-  height: 24px;
-  background: linear-gradient(135deg, #FF6B9D, #C44569);
-  border-radius: 2px;
+.filter-title svg {
+  color: #FF6B9D;
+  flex-shrink: 0;
 }
 
 .filter-options {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  align-items: flex-start;
+}
+
+.filter-options-horizontal {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px;
+}
+
+.filter-options-horizontal .filter-option {
+  width: 100%;
+  padding: 8px 14px;
+  font-size: 0.9rem;
 }
 
 .filter-option {
   padding: 12px 20px;
-  background: #f9f9f9;
-  border: 2px solid transparent;
+  background: white;
+  border: 2px solid #e0e0e0;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 500;
@@ -54,6 +65,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .filter-option:hover {
@@ -69,11 +85,16 @@
   box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
 }
 
+.filter-option.active svg {
+  color: white;
+}
+
 .price-filter {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   gap: 10px;
   margin-bottom: 15px;
+  align-items: flex-start;
 }
 
 .price-input {
@@ -92,9 +113,10 @@
 }
 
 .price-separator {
-  color: #666;
-  font-weight: 600;
-  font-size: 1.2rem;
+  color: #999;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 0 5px;
 }
 
 .apply-filter-btn {

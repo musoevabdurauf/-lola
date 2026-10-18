@@ -32,7 +32,6 @@ const Navbar = () => {
             <h1  style={{fontSize: "22px", color: "white", backgroundColor: "rgba(22, 169, 62, 0.94)" , padding: "2px 14px" , borderRadius: "10px", textAlign: "center", marginLeft: "10px"}}>Заказать</h1>
           </a>
         </div>
-
       </div>
     </nav>
   )
