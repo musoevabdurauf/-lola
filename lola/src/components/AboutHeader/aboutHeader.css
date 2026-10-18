@@ -7,10 +7,10 @@
 }
 
 .about-title {
-  font-size: 4rem;
-  font-weight: 800;
+  font-size: 3rem;
+  font-weight: 700;
   margin: 0 0 20px 0;
-  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  background: linear-gradient(135deg, #1e0808, #5f5c5d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
