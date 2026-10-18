@@ -174,3 +174,25 @@
     font-size: 1.5rem;
   }
 }
+.lll {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;  
+  margin-top: 5px;
+}
+.lll p {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
+  border-radius: 50%;
+  font-size: 1.2rem;      /* без пробела: 1.6rem, а не 1.6 rem */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  
+}
+#pp{
+  background-color: rgba(224, 12, 12, 0.853);
+}

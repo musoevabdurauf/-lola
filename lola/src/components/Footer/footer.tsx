@@ -4,6 +4,7 @@ import './footer.css'
 const Footer = () => {
   return (
     <footer className="footer">
+      <hr/>
       <div className="footer-container">
         <div className="footer-content">
           <div className="footer-section">
@@ -42,8 +43,8 @@ const Footer = () => {
             <h3 className="footer-title">Контакты</h3>
             <ul className="footer-contact">
               <li>
-                <span className="contact-icon">📞</span>
-                <a href="tel:+992750545471">+992 750 545 471</a>
+                <img className="contact-icon" src="src/assets/call.png" alt="" />
+                <a id='tel'  href="tel:+992113550707">+992 113 55 07 07</a>
               </li>
               <li>
                 <span className="contact-icon">📍</span>
