@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "https://lotuss.tj/api/files/site/2026-05-hero-image-0d5f.webp",
+    "title": "Букеты, которые радуют каждого",
+    "description": "Свежие цветы от наших флористов. Фото перед отправкой, анонимная доставка."
+  },
+  {
+    "id": 2,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTABdFuuwL6e2HAHkd4Xswaq-B5A0GHgKbsNU2DhK1wYeyYaLwk0NFThqdjNsOy_k4ft0RLFyq7TBnzUsdWKF0EN9qdBjxgpuSb9Oa7M5iNA&s=10",
+    "title": "Розы для особенных моментов",
+    "description": "Идеальный подарок для выражения ваших чувств. Доставка по Душанбе за 2-3 часа."
+  },
+  {
+    "id": 3,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTABdFuuwL6e2HAHkd4Xswaq-B5A0GHgKbsNU2DhK1wYeyYaLwk0NFThqdjNsOy_k4ft0RLFyq7TBnzUsdWKF0EN9qdBjxgpuSb9Oa7M5iNA&s=10",
+    "title": "Свадебные букеты",
+    "description": "Создадим уникальный букет для вашего особенного дня. Индивидуальный подход."
+  },
+  {
+    "id": 0,
+    "image": "https://lotuss.tj/api/files/products/2026-05-sto-odna-alaya-strast-effb-main.webp",
+    "title": "Саду як ҳаваси сурх",
+    "description": "Ин гулдастаи пуршукӯҳ аз 101 садбарги сурх ҳисси амиқтаринро ифода мекунад. Беҳтарин аст барои изҳори муҳаббат ё як ҳодисаи муҳим, вақте ки суханҳо зиёдатианд."
+  }
+]

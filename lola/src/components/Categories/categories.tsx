@@ -5,38 +5,38 @@ interface Category {
   name: string
   path: string
   count: string
-  icon: string
+  image: string
 }
 
 const Categories = () => {
   const categories: Category[] = [
-    { name: 'Букеты', path: '/catalog/bukety', count: '24 товара', icon: '💐' },
-    { name: 'Розы', path: '/catalog/rozy', count: '14 товаров', icon: '🌹' },
-    { name: 'Тюльпаны', path: '/catalog/tulpany', count: '1 товар', icon: '🌷' },
-    { name: 'Композиции', path: '/catalog/kompozitsii', count: '4 товара', icon: '🎨' },
-    { name: 'Корзины', path: '/catalog/korziny', count: '8 товаров', icon: '🧺' },
-    { name: 'Свадебные', path: '/catalog/svadebnye', count: '6 товаров', icon: '💒' }
+    { name: 'Букеты', path: '/catalog/bukety', count: '24 товара', image: 'https://lotuss.tj/api/files/categories/bukety.webp' },
+    { name: 'Розы', path: '/catalog/rozy', count: '14 товаров', image: 'https://lotuss.tj/api/files/categories/rozy.webp' },
+    { name: 'Тюльпаны', path: '/catalog/tulpany', count: '1 товар', image: 'https://lotuss.tj/api/files/categories/tulpany.webp' },
+    { name: 'Композиции', path: '/catalog/kompozitsii', count: '4 товара', image: 'https://lotuss.tj/api/files/categories/kompozitsii.webp' },
+    { name: 'Корзины', path: '/catalog/korziny', count: '8 товаров', image: 'https://lotuss.tj/api/files/categories/korziny.webp' },
+    { name: 'Свадебные', path: '/catalog/svadebnye', count: '6 товаров', image: 'https://lotuss.tj/api/files/categories/svadebnye.webp' }
   ]
 
   return (
     <section className="categories-section">
       <div className="categories-container">
         <div className="categories-header">
-          <span className="categories-badge">📂 Категории</span>
+          <span className="categories-badge">Категории</span>
           <h2 className="categories-title">Что ищете сегодня?</h2>
           <p className="categories-subtitle">Выберите идеальный букет для любого случая</p>
         </div>
 
         <div className="categories-grid">
           {categories.map((category, index) => (
-            <Link 
-              key={index} 
-              to={category.path} 
+            <Link
+              key={index}
+              to={category.path}
               className="category-card"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="category-icon-wrapper">
-                <span className="category-icon">{category.icon}</span>
+              <div className="category-image-wrapper">
+                <img src={category.image} alt={category.name} className="category-image" />
               </div>
               <h3 className="category-name">{category.name}</h3>
               <span className="category-count">{category.count}</span>

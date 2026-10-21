@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../ProductCard/productcard'
 import './featuredProducts.css'
@@ -17,14 +18,20 @@ interface FeaturedProductsProps {
 }
 
 const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
-  const featuredProducts = products.slice(0, 4)
+  const [visibleCount, setVisibleCount] = useState(8)
+  const visibleProducts = products.slice(0, visibleCount)
+  const hasMore = products.length > visibleCount
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 8)
+  }
 
   return (
     <section className="featured-products">
       <div className="featured-container">
         <div className="featured-header">
           <div className="featured-title-wrapper">
-            <span className="featured-badge">🔥 Популярное</span>
+            <span className="featured-badge">Популярное</span>
             <h2 className="featured-title">Что заказывают чаще всего</h2>
             <p className="featured-subtitle">Самые любимые букеты наших клиентов</p>
           </div>
@@ -36,8 +43,8 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
           </Link>
         </div>
 
-        <div className="products-grid">
-          {featuredProducts.map((product, index) => (
+        <div className="featured-products-grid">
+          {visibleProducts.map((product, index) => (
             <div key={product.id} className="product-wrapper" style={{ animationDelay: `${index * 0.1}s` }}>
               <ProductCard
                 id={product.id}
@@ -51,6 +58,14 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
             </div>
           ))}
         </div>
+
+        {hasMore && (
+          <div className="featured-load-more">
+            <button className="load-more-btn" onClick={loadMore}>
+              Показать еще
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )
