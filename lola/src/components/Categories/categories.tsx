@@ -1,7 +1,10 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { categoriesApi } from '../../services/CategoriesApi'
 import './categories.css'
 
 interface Category {
+  id: number
   name: string
   path: string
   count: string
@@ -9,14 +12,42 @@ interface Category {
 }
 
 const Categories = () => {
-  const categories: Category[] = [
-    { name: 'Букеты', path: '/catalog/bukety', count: '24 товара', image: 'https://lotuss.tj/api/files/categories/bukety.webp' },
-    { name: 'Розы', path: '/catalog/rozy', count: '14 товаров', image: 'https://lotuss.tj/api/files/categories/rozy.webp' },
-    { name: 'Тюльпаны', path: '/catalog/tulpany', count: '1 товар', image: 'https://lotuss.tj/api/files/categories/tulpany.webp' },
-    { name: 'Композиции', path: '/catalog/kompozitsii', count: '4 товара', image: 'https://lotuss.tj/api/files/categories/kompozitsii.webp' },
-    { name: 'Корзины', path: '/catalog/korziny', count: '8 товаров', image: 'https://lotuss.tj/api/files/categories/korziny.webp' },
-    { name: 'Свадебные', path: '/catalog/svadebnye', count: '6 товаров', image: 'https://lotuss.tj/api/files/categories/svadebnye.webp' }
-  ]
+  const [categories, setCategories] = useState<Category[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+  const fetchCategories = async () => {
+    try {
+      const data = await categoriesApi.getCategories()
+      setCategories(data)
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <section className="categories-section">
+        <div className="categories-container">
+          <div className="categories-header">
+            <span className="categories-badge">Категории</span>
+            <h2 className="categories-title">Что ищете сегодня?</h2>
+            <p className="categories-subtitle">Выберите идеальный букет для любого случая</p>
+          </div>
+          <div className="categories-grid">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="category-card skeleton"></div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="categories-section">
@@ -28,12 +59,11 @@ const Categories = () => {
         </div>
 
         <div className="categories-grid">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <Link
-              key={index}
+              key={category.id}
               to={category.path}
               className="category-card"
-              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="category-image-wrapper">
                 <img src={category.image} alt={category.name} className="category-image" />

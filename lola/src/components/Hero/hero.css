@@ -1,21 +1,7 @@
-:root {
-  --primary-pink: #ffa1af;
-  --secondary-pink: #ff6fb9;
-  --soft-pink: #ffb6c3;
-  --leaf-green: #4CAF50;
-  --dark-green: #2E7D32;
-  --cream: #FFF8F0;
-  --white: #FFFFFF;
-  --text-dark: #2C3E50;
-  --text-light: #7F8C8D;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
 .hero {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #1a1a1a;
-  background: linear-gradient(135deg, #fff5f8 0%, #ffffff 100%);
+  color: var(--text-dark);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
 }
 
 .hero-container {
@@ -52,21 +38,21 @@
 .hero-description {
   font-size: 1.2rem;
   line-height: 1.6;
-  color: white;
+  color: var(--text-light);
   margin: 0;
 }
 
 .hero-button {
   padding: 18px 40px;
-  background: linear-gradient(135deg, #C44569, #FF6B9D);
-  color: white;
+  background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+  color: var(--white);
   border: none;
   border-radius: 15px;
   font-weight: 700;
   font-size: 1.15rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(196, 69, 105, 0.3);
+  box-shadow: var(--shadow);
   text-decoration: none;
   display: inline-block;
   text-align: center;
@@ -75,7 +61,7 @@
 
 .hero-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(196, 69, 105, 0.4);
+  box-shadow: var(--shadow-hover);
 }
 
 .hero-slider {
@@ -88,7 +74,7 @@
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(255, 107, 157, 0.2);
+  box-shadow: var(--shadow-hover);
 }
 
 .slide {
@@ -123,17 +109,17 @@
   font-size: 2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  color: #C44569;
+  box-shadow: var(--shadow);
+  color: var(--secondary-pink);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .slider-button:hover {
-  background: white;
+  background: var(--white);
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-hover);
 }
 
 .slider-button.prev {

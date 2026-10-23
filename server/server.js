@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const productsRouter = require('./routers/products');
 const slidesRouter = require('./routers/slides');
+const categoriesRouter = require('./routers/categories');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/products', productsRouter);
 app.use('/api/slides', slidesRouter);
+app.use('/api/categories', categoriesRouter);
 
 // Запуск сервера
 app.listen(PORT, () => {

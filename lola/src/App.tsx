@@ -9,6 +9,7 @@ import  About  from './pages/About/about';
 import  Favorite  from './pages/Favorite/favorite';
 import Admin from './pages/Admin/admin';
 import AdminSlides from './pages/AdminSlides/adminSlides';
+import AdminCategories from './pages/AdminCategories/adminCategories';
 import NotFound from './pages/NotFound/notFound';
 import Delivery from './pages/Delivery/delivery';
 import Login from './pages/Login/login';
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
         {/* Admin routes - separate from main layout */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/slides" element={<AdminSlides />} />
+        <Route path="/admin/categories" element={<AdminCategories />} />
 
         {/* Main app with Navbar and Footer */}
         <Route path="*" element={

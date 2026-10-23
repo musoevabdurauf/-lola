@@ -16,6 +16,9 @@ const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
           <Link to="/admin/slides" className="admin-navbar-menu-item">
             🖼️ Слайды
           </Link>
+          <Link to="/admin/categories" className="admin-navbar-menu-item">
+            📁 Категории
+          </Link>
           <Link to="/admin/orders" className="admin-navbar-menu-item">
             📋 Заказы
           </Link>

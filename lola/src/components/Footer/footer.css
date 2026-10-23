@@ -1,6 +1,6 @@
 .footer {
-  background-color: white;
-  color: black;
+  background-color: var(--white);
+  color: var(--text-dark);
   padding: 60px 20px 30px;
 }
 
@@ -26,7 +26,7 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: black;
+  color: var(--text-dark);
 }
 
 .footer-description {
@@ -47,7 +47,7 @@
 }
 
 .footer-links a {
-  color: black;
+  color: var(--text-dark);
   text-decoration: none;
   transition: opacity 0.3s ease;
   opacity: 0.9;
@@ -76,7 +76,7 @@
 }
 
 .footer-contact a {
-  color: white;
+  color: var(--text-dark);
   text-decoration: none;
   opacity: 0.9;
   transition: opacity 0.3s ease;
@@ -135,5 +135,5 @@
   width: 30px;
 }
 #tel{
-  color: black;
+  color: var(--text-dark);
 }

@@ -44,19 +44,22 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
         </div>
 
         <div className="featured-products-grid">
-          {visibleProducts.map((product, index) => (
-            <div key={product.id} className="product-wrapper" style={{ animationDelay: `${index * 0.1}s` }}>
-              <ProductCard
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                badge={product.badge}
-                isNew={product.isNew}
-                isHit={product.isHit}
-                image={product.image}
-              />
-            </div>
-          ))}
+          {visibleProducts.map((product, index) => {
+            const batchIndex = index % 8
+            return (
+              <div key={product.id} className="product-wrapper" style={{ animationDelay: `${batchIndex * 0.05}s` }}>
+                <ProductCard
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  badge={product.badge}
+                  isNew={product.isNew}
+                  isHit={product.isHit}
+                  image={product.image}
+                />
+              </div>
+            )
+          })}
         </div>
 
         {hasMore && (

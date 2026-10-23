@@ -21,11 +21,13 @@
 }
 
 .product-badge.new {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(90, 179, 94, 0.1));
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .product-badge.hit {
-  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  background: linear-gradient(135deg, rgba(255, 111, 185, 0.1), rgba(255, 192, 201, 0.1));
+  box-shadow: 0 4px 12px rgba(255, 0, 85, 0.3);
 }
 
 .product-image {

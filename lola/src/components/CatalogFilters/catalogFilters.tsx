@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { categoriesApi } from '../../services/CategoriesApi'
 import './catalogFilters.css'
 
 interface Category {
@@ -23,22 +25,26 @@ interface CatalogFiltersProps {
 }
 
 const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, setMinPrice, maxPrice, setMaxPrice, onApplyPriceFilter }: CatalogFiltersProps) => {
-  const categories: Category[] = [
-    { id: 'all', name: 'Все' },
-    { id: 'rozy', name: 'Розы' },
-    { id: 'kustovye-rozy', name: 'Кустовые розы' },
-    { id: 'tulpany', name: 'Тюльпаны' },
-    { id: 'piony', name: 'Пионы' },
-    { id: 'gortenziya', name: 'Гортензия' },
-    { id: 'lilii', name: 'Лилии' },
-    { id: 'gipsophila', name: 'Гипсофила' },
-    { id: 'bukety', name: 'Букеты' },
-    { id: 'korobki', name: 'Коробки' },
-    { id: 'gorshki', name: 'Горшки' },
-    { id: 'myagkie-igrushki', name: 'Мягкие игрушки' },
-    { id: 'suveniry', name: 'Сувениры' },
-    { id: 'lekarstvo', name: 'Лекарство для домашних цветов' },
-  ]
+  const [categories, setCategories] = useState<Category[]>([
+    { id: 'all', name: 'Все' }
+  ])
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+  const fetchCategories = async () => {
+    try {
+      const data = await categoriesApi.getCategories()
+      const transformedCategories = data.map((cat: any) => ({
+        id: cat.path.split('/').pop(),
+        name: cat.name
+      }))
+      setCategories([{ id: 'all', name: 'Все' }, ...transformedCategories])
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    }
+  }
 
   const sortOptions: SortOption[] = [
     { id: 'popular', name: 'По популярности' },

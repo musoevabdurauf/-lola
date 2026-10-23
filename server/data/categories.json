@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "name": "Букеты",
+    "path": "/catalog/bukety",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-bukety-f4f5.webp"
+  },
+  {
+    "id": 2,
+    "name": "Розы",
+    "path": "/catalog/rozy",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-rozy-0ca4.webp"
+  },
+  {
+    "id": 3,
+    "name": "Тюльпаны",
+    "path": "/catalog/tulpany",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-tulpany-9d31.webp"
+  },
+  {
+    "id": 4,
+    "name": "Композиции",
+    "path": "/catalog/kompozitsii",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-kompozitsii-a7f2.webp"
+  },
+  {
+    "id": 5,
+    "name": "Корзины",
+    "path": "/catalog/korziny",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-korziny-030e.webp"
+  },
+  {
+    "id": 6,
+    "name": "Свадебные",
+    "path": "/catalog/svadebnye",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-svadebnye-0829.webp"
+  },
+  {
+    "id": 7,
+    "name": "Декоративные растения",
+    "path": "/catalog/dekorativnye-rasteniya",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-dekorativnye-rasteniya-002e.webp"
+  },
+  {
+    "id": 8,
+    "name": "Вазы",
+    "path": "/catalog/vazy",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-vazy-958c.webp"
+  },
+  {
+    "id": 9,
+    "name": "Кустовые розы",
+    "path": "/catalog/kustovye-rozy",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-kustovye-rozy.webp"
+  },
+  {
+    "id": 10,
+    "name": "Пионы",
+    "path": "/catalog/pony",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-pony.webp"
+  },
+  {
+    "id": 11,
+    "name": "Гортензия",
+    "path": "/catalog/gortenziya",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-gortenziya.webp"
+  },
+  {
+    "id": 12,
+    "name": "Лилии",
+    "path": "/catalog/lilii",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-lilii.webp"
+  },
+  {
+    "id": 13,
+    "name": "Гипсофила",
+    "path": "/catalog/gipsophila",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-gipsophila.webp"
+  },
+  {
+    "id": 14,
+    "name": "Коробки",
+    "path": "/catalog/korobki",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-korobki.webp"
+  },
+  {
+    "id": 15,
+    "name": "Горшки",
+    "path": "/catalog/gorshki",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-gorshki.webp"
+  },
+  {
+    "id": 16,
+    "name": "Мягкие игрушки",
+    "path": "/catalog/myagkie-igrushki",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-myagkie-igrushki.webp"
+  },
+  {
+    "id": 17,
+    "name": "Сувениры",
+    "path": "/catalog/suveniry",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-suveniry.webp"
+  },
+  {
+    "id": 18,
+    "name": "Лекарство для домашних цветов",
+    "path": "/catalog/lekarstvo",
+    "image": "https://lotuss.tj/api/files/categories/2026-05-lekarstvo.webp"
+  }
+]
+
