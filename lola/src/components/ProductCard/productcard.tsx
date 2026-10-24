@@ -24,7 +24,9 @@ const ProductCard = ({ id, name, price, image, badge, isNew, isHit }: ProductCar
   return (
     <Link to={`/product/${id}`} className="product-card">
       <div className="card-header">
-          {badge && <div className={`product-badge ${isNew ? 'new' : ''} ${isHit ? 'hit' : ''}`}>{badge}</div>}
+          {isHit && <div className="product-badge hit">Хит</div>}
+          {isNew && !isHit && <div className="product-badge new">Новинка</div>}
+          {badge && !isHit && !isNew && <div className="product-badge">{badge}</div>}
       <button
         className={`favorite-button ${isFavorite ? 'active' : ''}`}
         onClick={toggleFavorite}

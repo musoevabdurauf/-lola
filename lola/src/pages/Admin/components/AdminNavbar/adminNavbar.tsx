@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
+  const menuClass = ({ isActive }: { isActive: boolean }) =>
+    `admin-navbar-menu-item${isActive ? ' active' : ''}`
+
   return (
     <nav className="admin-navbar">
       <div className="admin-navbar-container">
@@ -10,21 +13,15 @@ const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
           </Link>
         </div>
         <div className="admin-navbar-menu">
-          <Link to="/admin" className="admin-navbar-menu-item active">
+          <NavLink to="/admin" end className={menuClass}>
             📦 Продукты
-          </Link>
-          <Link to="/admin/slides" className="admin-navbar-menu-item">
+          </NavLink>
+          <NavLink to="/admin/slides" className={menuClass}>
             🖼️ Слайды
-          </Link>
-          <Link to="/admin/categories" className="admin-navbar-menu-item">
+          </NavLink>
+          <NavLink to="/admin/categories" className={menuClass}>
             📁 Категории
-          </Link>
-          <Link to="/admin/orders" className="admin-navbar-menu-item">
-            📋 Заказы
-          </Link>
-          <Link to="/admin/settings" className="admin-navbar-menu-item">
-            ⚙️ Настройки
-          </Link>
+          </NavLink>
         </div>
         <div className="admin-navbar-actions">
           <Link to="/" className="admin-navbar-link">

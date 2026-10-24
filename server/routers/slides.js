@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const { requireAuth } = require('../auth');
 
 const router = express.Router();
 const slidesPath = path.join(__dirname, '../data/slides.json');
@@ -32,7 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create slide
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(slidesPath, 'utf8');
     const slides = JSON.parse(data);
@@ -49,7 +50,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update slide
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(slidesPath, 'utf8');
     const slides = JSON.parse(data);
@@ -66,7 +67,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE slide
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(slidesPath, 'utf8');
     const slides = JSON.parse(data);

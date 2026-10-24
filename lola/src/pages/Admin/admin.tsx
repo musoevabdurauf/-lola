@@ -1,27 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Api from '../../services/Api'
+import { clearAuthToken, isAuthenticated } from '../../services/http'
+import type { Product } from '../../types'
 import AdminNavbar from './components/AdminNavbar/adminNavbar'
 import AdminHeader from './components/AdminHeader/adminHeader'
 import AdminTable from './components/AdminTable/adminTable'
 import AdminModal from './components/AdminModal/adminModal'
 import AdminStats from './components/AdminStats/adminStats'
 import './admin.css'
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  description: string
-  badge: string
-  isNew: boolean
-  isHit: boolean
-  category: string
-  composition: string
-  height: string
-  care: string
-  image?: string
-}
 
 const Admin = () => {
   const navigate = useNavigate()
@@ -48,32 +35,48 @@ const Admin = () => {
     image: ''
   })
 
-  useEffect(() => {
-    // Проверка авторизации
-    const isAdmin = localStorage.getItem('isAdmin')
-    if (!isAdmin) {
-      navigate('/login')
-      return
-    }
-
-    fetchProducts()
-  }, [navigate])
-
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
-    navigate('/login')
-  }
-
-  const fetchProducts = async () => {
+  const refreshProducts = async () => {
     try {
-      setLoading(true)
       const data = await Api.getProducts()
       setProducts(data)
     } catch (error) {
       console.error('Error fetching products:', error)
-    } finally {
-      setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login')
+      return
+    }
+
+    let cancelled = false
+
+    const loadProducts = async () => {
+      try {
+        const data = await Api.getProducts()
+        if (!cancelled) {
+          setProducts(data)
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadProducts()
+
+    return () => {
+      cancelled = true
+    }
+  }, [navigate])
+
+  const handleLogout = () => {
+    clearAuthToken()
+    navigate('/login')
   }
 
   const filteredProducts = products.filter(product => {
@@ -122,7 +125,7 @@ const Admin = () => {
         await Api.createProduct(formData)
         showNotification('success', 'Продукт успешно создан')
       }
-      await fetchProducts()
+      await refreshProducts()
       setIsModalOpen(false)
       resetForm()
     } catch (error) {
@@ -140,7 +143,7 @@ const Admin = () => {
     if (productToDelete) {
       try {
         await Api.deleteProduct(productToDelete)
-        await fetchProducts()
+        await refreshProducts()
         showNotification('success', 'Продукт успешно удален')
       } catch (error) {
         console.error('Error deleting product:', error)

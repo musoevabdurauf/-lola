@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const { requireAuth } = require('../auth');
 
 const router = express.Router();
 const dataFilePath = path.join(__dirname, '../data/products.json');
@@ -53,7 +54,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create new product
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const products = await readProducts();
     const newProduct = {
@@ -71,7 +72,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update product
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const products = await readProducts();
     const index = products.findIndex(p => p.id === req.params.id);
@@ -90,7 +91,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE product
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const products = await readProducts();
     const index = products.findIndex(p => p.id === req.params.id);

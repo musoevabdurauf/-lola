@@ -1,43 +1,32 @@
-const API_BASE = 'http://localhost:5000/api'
+import { request } from './http'
+import type { Slide } from '../types'
 
 export const slidesApi = {
-  async getSlides() {
-    const response = await fetch(`${API_BASE}/slides`)
-    if (!response.ok) throw new Error('Failed to fetch slides')
-    return response.json()
+  getSlides() {
+    return request<Slide[]>('/slides')
   },
 
-  async getSlide(id: number) {
-    const response = await fetch(`${API_BASE}/slides/${id}`)
-    if (!response.ok) throw new Error('Failed to fetch slide')
-    return response.json()
+  getSlide(id: number) {
+    return request<Slide>(`/slides/${id}`)
   },
 
-  async createSlide(slide: any) {
-    const response = await fetch(`${API_BASE}/slides`, {
+  createSlide(slide: Partial<Slide>) {
+    return request<Slide>('/slides', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(slide),
     })
-    if (!response.ok) throw new Error('Failed to create slide')
-    return response.json()
   },
 
-  async updateSlide(id: number, slide: any) {
-    const response = await fetch(`${API_BASE}/slides/${id}`, {
+  updateSlide(id: number, slide: Partial<Slide>) {
+    return request<Slide>(`/slides/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(slide),
     })
-    if (!response.ok) throw new Error('Failed to update slide')
-    return response.json()
   },
 
-  async deleteSlide(id: number) {
-    const response = await fetch(`${API_BASE}/slides/${id}`, {
+  deleteSlide(id: number) {
+    return request<{ message: string }>(`/slides/${id}`, {
       method: 'DELETE',
     })
-    if (!response.ok) throw new Error('Failed to delete slide')
-    return response.json()
   },
 }

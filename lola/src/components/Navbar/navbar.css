@@ -119,10 +119,67 @@
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .navbar-phone:hover {
   color: var(--primary-pink);
+}
+
+.navbar-order {
+  display: inline-block;
+  padding: 2px 14px;
+  border-radius: 10px;
+  background-color: rgba(22, 169, 62, 0.94);
+  color: var(--white);
+  font-size: 1.375rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.navbar-mobile-only {
+  display: none;
+}
+
+.navbar-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: var(--soft-pink);
+  cursor: pointer;
+}
+
+.navbar-burger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar-burger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-burger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.navbar-logo .lll {
+  margin: 0;
 }
 
 .admin-link {
@@ -166,12 +223,82 @@
     display: none;
   }
 
+  .navbar-nav.open {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px 20px 16px;
+    background: var(--white);
+    border-top: 1px solid rgba(255, 107, 157, 0.15);
+    box-shadow: var(--shadow);
+  }
+
+  .navbar-nav.open li + li {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar-nav.open .navbar-link {
+    display: block;
+    padding: 12px 0;
+  }
+
+  .navbar-mobile-only {
+    display: block;
+  }
+
+  .navbar-burger {
+    display: flex;
+  }
+
+  .navbar-actions .navbar-icon {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 10px;
+  }
+
   .navbar-container {
     padding: 10px 0;
   }
 
   .navbar-logo {
     font-size: 1.5rem;
+  }
+
+  .navbar-order {
+    font-size: 1.1rem;
+    padding: 4px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 12px;
+  }
+
+  .navbar-logo {
+    font-size: 1.25rem;
+  }
+
+  .navbar-logo .lll p {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .navbar-order {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+  }
+
+  .navbar-phone svg {
+    width: 20px;
+    height: 20px;
   }
 }
 .lll {

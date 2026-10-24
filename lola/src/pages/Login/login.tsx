@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Api from '../../services/Api'
+import { setAuthToken } from '../../services/http'
 import LoginHeader from './components/LoginHeader/loginHeader'
 import LoginForm from './components/LoginForm/loginForm'
-import LoginFooter from './components/LoginFooter/loginFooter'
 import './login.css'
 
 const Login = () => {
@@ -11,16 +12,16 @@ const Login = () => {
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
-    // Простая проверка (в реальном проекте это должно быть на сервере)
-    if (username === 'admin' && password === 'admin123') {
-      localStorage.setItem('isAdmin', 'true')
+    try {
+      const { token } = await Api.login({ username, password })
+      setAuthToken(token)
       navigate('/admin')
-    } else {
-      setError('Неверный логин или пароль')
+    } catch (loginError) {
+      setError(loginError instanceof Error ? loginError.message : 'Не удалось войти')
     }
   }
 
@@ -37,7 +38,6 @@ const Login = () => {
             onPasswordChange={(e) => setPassword(e.target.value)}
             onSubmit={handleSubmit}
           />
-          <LoginFooter />
         </div>
       </div>
     </div>

@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { categoriesApi } from '../../services/CategoriesApi'
+import { clearAuthToken, isAuthenticated } from '../../services/http'
+import type { Category } from '../../types'
 import AdminNavbar from '../Admin/components/AdminNavbar/adminNavbar'
 import './adminCategories.css'
-
-interface Category {
-  id: number
-  name: string
-  path: string
-  count?: string
-  image: string
-}
 
 const AdminCategories = () => {
   const navigate = useNavigate()
@@ -19,30 +13,47 @@ const AdminCategories = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin')
-    if (!isAdmin) {
-      navigate('/login')
-      return
-    }
-
-    fetchCategories()
-  }, [navigate])
-
-  const fetchCategories = async () => {
+  const refreshCategories = async () => {
     try {
-      setLoading(true)
       const data = await categoriesApi.getCategories()
       setCategories(data)
     } catch (error) {
       console.error('Error fetching categories:', error)
-    } finally {
-      setLoading(false)
     }
   }
 
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login')
+      return
+    }
+
+    let cancelled = false
+
+    const loadCategories = async () => {
+      try {
+        const data = await categoriesApi.getCategories()
+        if (!cancelled) {
+          setCategories(data)
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadCategories()
+
+    return () => {
+      cancelled = true
+    }
+  }, [navigate])
+
   const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
+    clearAuthToken()
     navigate('/login')
   }
 
@@ -60,7 +71,7 @@ const AdminCategories = () => {
     if (!confirm('Удалить эту категорию?')) return
     try {
       await categoriesApi.deleteCategory(id)
-      await fetchCategories()
+      await refreshCategories()
     } catch (error) {
       console.error('Error deleting category:', error)
     }
@@ -74,7 +85,7 @@ const AdminCategories = () => {
         await categoriesApi.updateCategory(category.id, category)
       }
       setIsModalOpen(false)
-      await fetchCategories()
+      await refreshCategories()
     } catch (error) {
       console.error('Error saving category:', error)
     }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Api from '../../services/Api'
+import type { Product } from '../../types'
 import ProductImage from '../../components/ProductImage/productImage'
 import ProductInfo from '../../components/ProductInfo/productInfo'
 import ProductDetails from '../../components/ProductDetails/productDetails'
@@ -12,35 +13,40 @@ import './productDetail.css'
 const ProductDetail = () => {
   const { id } = useParams()
   const [quantity, setQuantity] = useState(1)
-  const [product, setProduct] = useState<{
-    id: string
-    name: string
-    price: number
-    badge?: string
-    isNew?: boolean
-    isHit?: boolean
-    image?: string
-    description: string
-    composition: string
-    height: string
-    care: string
-  } | null>(null)
+  const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchProduct()
+    if (!id) {
+      return
+    }
+
+    let cancelled = false
+
+    const loadProduct = async () => {
+      try {
+        const data = await Api.getProductById(id)
+        if (!cancelled) {
+          setProduct(data)
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadProduct()
+
+    return () => {
+      cancelled = true
+    }
   }, [id])
 
-  const fetchProduct = async () => {
-    try {
-      setLoading(true)
-      const data = await Api.getProductById(id)
-      setProduct(data)
-    } catch (error) {
-      console.error('Error fetching product:', error)
-    } finally {
-      setLoading(false)
-    }
+  if (!id) {
+    return <div className="product-detail">Продукт не найден</div>
   }
 
   const handleQuantityChange = (delta: number) => {

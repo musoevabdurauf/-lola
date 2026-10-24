@@ -1,43 +1,32 @@
-const API_BASE = 'http://localhost:5000/api'
+import { request } from './http'
+import type { Category } from '../types'
 
 export const categoriesApi = {
-  async getCategories() {
-    const response = await fetch(`${API_BASE}/categories`)
-    if (!response.ok) throw new Error('Failed to fetch categories')
-    return response.json()
+  getCategories() {
+    return request<Category[]>('/categories')
   },
 
-  async getCategory(id: number) {
-    const response = await fetch(`${API_BASE}/categories/${id}`)
-    if (!response.ok) throw new Error('Failed to fetch category')
-    return response.json()
+  getCategory(id: number) {
+    return request<Category>(`/categories/${id}`)
   },
 
-  async createCategory(category: any) {
-    const response = await fetch(`${API_BASE}/categories`, {
+  createCategory(category: Partial<Category>) {
+    return request<Category>('/categories', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(category),
     })
-    if (!response.ok) throw new Error('Failed to create category')
-    return response.json()
   },
 
-  async updateCategory(id: number, category: any) {
-    const response = await fetch(`${API_BASE}/categories/${id}`, {
+  updateCategory(id: number, category: Partial<Category>) {
+    return request<Category>(`/categories/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(category),
     })
-    if (!response.ok) throw new Error('Failed to update category')
-    return response.json()
   },
 
-  async deleteCategory(id: number) {
-    const response = await fetch(`${API_BASE}/categories/${id}`, {
+  deleteCategory(id: number) {
+    return request<{ message: string }>(`/categories/${id}`, {
       method: 'DELETE',
     })
-    if (!response.ok) throw new Error('Failed to delete category')
-    return response.json()
   },
 }

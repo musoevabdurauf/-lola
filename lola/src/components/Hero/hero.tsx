@@ -16,19 +16,29 @@ const Hero = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchSlides()
-  }, [])
+    let cancelled = false
 
-  const fetchSlides = async () => {
-    try {
-      const data = await slidesApi.getSlides()
-      setSlides(data)
-    } catch (error) {
-      console.error('Error fetching slides:', error)
-    } finally {
-      setLoading(false)
+    const loadSlides = async () => {
+      try {
+        const data = await slidesApi.getSlides()
+        if (!cancelled) {
+          setSlides(data)
+        }
+      } catch (error) {
+        console.error('Error fetching slides:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
     }
-  }
+
+    loadSlides()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     if (slides.length === 0) return

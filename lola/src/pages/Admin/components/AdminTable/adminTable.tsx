@@ -1,13 +1,4 @@
-interface Product {
-  id: string
-  name: string
-  price: number
-  category: string
-  badge: string
-  image?: string
-  isNew?: boolean
-  isHit?: boolean
-}
+import type { Product } from '../../../../types'
 
 const AdminTable = ({
   products,

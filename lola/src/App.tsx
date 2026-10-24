@@ -12,6 +12,7 @@ import AdminSlides from './pages/AdminSlides/adminSlides';
 import AdminCategories from './pages/AdminCategories/adminCategories';
 import NotFound from './pages/NotFound/notFound';
 import Delivery from './pages/Delivery/delivery';
+import Contact from './pages/Contact/contact';
 import Login from './pages/Login/login';
 
 import './App.css';
@@ -39,6 +40,7 @@ export const App: React.FC = () => {
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/delivery" element={<Delivery />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/favorite" element={<Favorite />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="*" element={<NotFound />} />

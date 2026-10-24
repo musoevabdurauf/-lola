@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import callIcon from '../../assets/Call.png'
 import './footer.css'
 
 const Footer = () => {
@@ -20,12 +21,12 @@ const Footer = () => {
           <div className="footer-section">
             <h3 className="footer-title">Каталог</h3>
             <ul className="footer-links">
-              <li><Link to="/catalog/bukety">Букеты</Link></li>
-              <li><Link to="/catalog/rozy">Розы</Link></li>
-              <li><Link to="/catalog/tulpany">Тюльпаны</Link></li>
-              <li><Link to="/catalog/kompozitsii">Композиции</Link></li>
-              <li><Link to="/catalog/korziny">Корзины</Link></li>
-              <li><Link to="/catalog/svadebnye">Свадебные</Link></li>
+              <li><Link to="/catalog?category=bukety">Букеты</Link></li>
+              <li><Link to="/catalog?category=rozy">Розы</Link></li>
+              <li><Link to="/catalog?category=tulpany">Тюльпаны</Link></li>
+              <li><Link to="/catalog?category=kompozitsii">Композиции</Link></li>
+              <li><Link to="/catalog?category=korziny">Корзины</Link></li>
+              <li><Link to="/catalog?category=svadebnye">Свадебные</Link></li>
             </ul>
           </div>
           
@@ -35,7 +36,6 @@ const Footer = () => {
               <li><Link to="/about">О нас</Link></li>
               <li><Link to="/delivery">Доставка</Link></li>
               <li><Link to="/contact">Контакты</Link></li>
-              <li><Link to="/faq">FAQ</Link></li>
             </ul>
           </div>
           
@@ -43,7 +43,7 @@ const Footer = () => {
             <h3 className="footer-title">Контакты</h3>
             <ul className="footer-contact">
               <li>
-                <img className="contact-icon" src="src/assets/call.png" alt="" />
+                <img className="contact-icon" src={callIcon} alt="" />
                 <a id='tel'  href="tel:+992113550707">+992 113 55 07 07</a>
               </li>
               <li>

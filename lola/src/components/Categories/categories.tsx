@@ -1,34 +1,42 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { categoriesApi } from '../../services/CategoriesApi'
+import type { Category } from '../../types'
 import './categories.css'
 
-interface Category {
-  id: number
-  name: string
-  path: string
-  count: string
-  image: string
+const getCategorySlug = (path: string) => {
+  return path.split('/').pop()
 }
 
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
-    fetchCategories()
-  }, [])
+    let cancelled = false
 
-  const fetchCategories = async () => {
-    try {
-      const data = await categoriesApi.getCategories()
-      setCategories(data)
-    } catch (error) {
-      console.error('Error fetching categories:', error)
-    } finally {
-      setLoading(false)
+    const loadCategories = async () => {
+      try {
+        const data = await categoriesApi.getCategories()
+        if (!cancelled) {
+          setCategories(data)
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
     }
-  }
+
+    loadCategories()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   if (loading) {
     return (
@@ -59,10 +67,10 @@ const Categories = () => {
         </div>
 
         <div className="categories-grid">
-          {categories.map((category) => (
+          {(showAll ? categories : categories.slice(0, 10)).map((category) => (
             <Link
               key={category.id}
-              to={category.path}
+              to={`/catalog?category=${getCategorySlug(category.path)}`}
               className="category-card"
             >
               <div className="category-image-wrapper">
@@ -75,12 +83,24 @@ const Categories = () => {
           ))}
         </div>
 
-        <Link to="/catalog" className="categories-view-all">
-          <span>Все категории</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.16667 10H15.8333M15.8333 10L10 4.16667M15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </Link>
+        {categories.length > 10 && (
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="categories-view-all"
+          >
+            <span>{showAll ? 'Свернуть' : 'Все категории'}</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ transform: showAll ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+            >
+              <path d="M4.16667 10H15.8333M15.8333 10L10 4.16667M15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
       </div>
     </section>
   )

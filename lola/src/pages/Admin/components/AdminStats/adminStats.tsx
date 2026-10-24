@@ -1,4 +1,6 @@
-const AdminStats = ({ products }: { products: any[] }) => {
+import type { Product } from '../../../../types'
+
+const AdminStats = ({ products }: { products: Product[] }) => {
   const totalProducts = products.length
   const totalValue = products.reduce((sum, p) => sum + (p.price || 0), 0)
   const newProducts = products.filter(p => p.isNew).length

@@ -22,29 +22,42 @@ interface CatalogFiltersProps {
   maxPrice: string
   setMaxPrice: (value: string) => void
   onApplyPriceFilter: () => void
+  showHitOnly: boolean
+  setShowHitOnly: (value: boolean) => void
+  showNewOnly: boolean
+  setShowNewOnly: (value: boolean) => void
 }
 
-const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, setMinPrice, maxPrice, setMaxPrice, onApplyPriceFilter }: CatalogFiltersProps) => {
+const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, setMinPrice, maxPrice, setMaxPrice, onApplyPriceFilter, showHitOnly, setShowHitOnly, showNewOnly, setShowNewOnly }: CatalogFiltersProps) => {
   const [categories, setCategories] = useState<Category[]>([
     { id: 'all', name: 'Все' }
   ])
 
   useEffect(() => {
-    fetchCategories()
-  }, [])
+    let cancelled = false
 
-  const fetchCategories = async () => {
-    try {
-      const data = await categoriesApi.getCategories()
-      const transformedCategories = data.map((cat: any) => ({
-        id: cat.path.split('/').pop(),
-        name: cat.name
-      }))
-      setCategories([{ id: 'all', name: 'Все' }, ...transformedCategories])
-    } catch (error) {
-      console.error('Error fetching categories:', error)
+    const loadCategories = async () => {
+      try {
+        const data = await categoriesApi.getCategories()
+        if (cancelled) {
+          return
+        }
+        const transformedCategories = data.map((cat) => ({
+          id: cat.path.split('/').pop() ?? String(cat.id),
+          name: cat.name,
+        }))
+        setCategories([{ id: 'all', name: 'Все' }, ...transformedCategories])
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      }
     }
-  }
+
+    loadCategories()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const sortOptions: SortOption[] = [
     { id: 'popular', name: 'По популярности' },
@@ -83,6 +96,38 @@ const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, se
         </div>
       </div>
 
+      <div className="filter-section">
+        <h3 className="filter-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Специальные
+        </h3>
+        <div className="filter-options">
+          <button
+            className={`filter-option ${showHitOnly ? 'active' : ''}`}
+            onClick={() => setShowHitOnly(!showHitOnly)}
+          >
+            {showHitOnly && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            )}
+            Хиты продаж
+          </button>
+          <button
+            className={`filter-option ${showNewOnly ? 'active' : ''}`}
+            onClick={() => setShowNewOnly(!showNewOnly)}
+          >
+            {showNewOnly && (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            )}
+            Новинки
+          </button>
+        </div>
+      </div>
 
       <div className="filter-section">
         

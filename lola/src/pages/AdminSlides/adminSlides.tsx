@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { slidesApi } from '../../services/SlidesApi'
+import { clearAuthToken, isAuthenticated } from '../../services/http'
+import type { Slide } from '../../types'
 import AdminNavbar from '../Admin/components/AdminNavbar/adminNavbar'
 import './adminSlides.css'
-
-interface Slide {
-  id: number
-  image: string
-  title: string
-  description: string
-}
 
 const AdminSlides = () => {
   const navigate = useNavigate()
@@ -18,30 +13,48 @@ const AdminSlides = () => {
   const [editingSlide, setEditingSlide] = useState<Slide | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin')
-    if (!isAdmin) {
-      navigate('/login')
-      return
-    }
-    fetchSlides()
-  }, [navigate])
-
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
-    navigate('/login')
-  }
-
-  const fetchSlides = async () => {
+  const refreshSlides = async () => {
     try {
-      setLoading(true)
       const data = await slidesApi.getSlides()
       setSlides(data)
     } catch (error) {
       console.error('Error fetching slides:', error)
-    } finally {
-      setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login')
+      return
+    }
+
+    let cancelled = false
+
+    const loadSlides = async () => {
+      try {
+        const data = await slidesApi.getSlides()
+        if (!cancelled) {
+          setSlides(data)
+        }
+      } catch (error) {
+        console.error('Error fetching slides:', error)
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadSlides()
+
+    return () => {
+      cancelled = true
+    }
+  }, [navigate])
+
+  const handleLogout = () => {
+    clearAuthToken()
+    navigate('/login')
   }
 
   const handleCreate = () => {
@@ -58,7 +71,7 @@ const AdminSlides = () => {
     if (!confirm('Удалить этот слайд?')) return
     try {
       await slidesApi.deleteSlide(id)
-      fetchSlides()
+      await refreshSlides()
     } catch (error) {
       console.error('Error deleting slide:', error)
     }
@@ -72,7 +85,7 @@ const AdminSlides = () => {
         await slidesApi.updateSlide(slide.id, slide)
       }
       setIsModalOpen(false)
-      fetchSlides()
+      await refreshSlides()
     } catch (error) {
       console.error('Error saving slide:', error)
     }

@@ -1,17 +1,4 @@
-interface Product {
-  id: string
-  name: string
-  price: number
-  description: string
-  badge: string
-  isNew: boolean
-  isHit: boolean
-  category: string
-  composition: string
-  height: string
-  care: string
-  image?: string
-}
+import type { Product } from '../../../../types'
 
 const AdminModal = ({
   isOpen,

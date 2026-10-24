@@ -16,7 +16,7 @@
 
 .load-more-btn {
   padding: 16px 40px;
-  background: linear-gradient(135deg, #FF6B9D, #C44569);
+  background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
   color: white;
   border: none;
   border-radius: 12px;

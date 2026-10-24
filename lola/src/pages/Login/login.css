@@ -109,23 +109,6 @@
   box-shadow: 0 12px 35px rgba(196, 69, 105, 0.4);
 }
 
-.login-footer {
-  margin-top: 30px;
-  text-align: center;
-  padding-top: 25px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.login-hint {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0;
-}
-
-.login-hint strong {
-  color: #C44569;
-  font-weight: 700;
-}
 
 /* Responsive */
 @media (max-width: 768px) {

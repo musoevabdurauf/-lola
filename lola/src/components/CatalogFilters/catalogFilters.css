@@ -10,11 +10,14 @@
   position: sticky;
   top: 20px;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .filter-section {
   margin-bottom: 20px;
+  flex: 1 1 300px;
+  min-width: 0;
 }
 
 .filter-section:last-child {
@@ -141,6 +144,11 @@
 @media (max-width: 1024px) {
   .catalog-filters {
     position: static;
+    flex-direction: column;
+  }
+
+  .filter-options {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
 
@@ -156,5 +164,16 @@
   .filter-option {
     padding: 10px 15px;
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-filters {
+    padding: 20px 15px;
+    border-radius: 16px;
+  }
+
+  .filter-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -1,26 +1,35 @@
 const express = require('express');
 const cors = require('cors');
+const { port, allowedOrigins } = require('./config');
+const { login, requireAuth } = require('./auth');
 const productsRouter = require('./routers/products');
 const slidesRouter = require('./routers/slides');
 const categoriesRouter = require('./routers/categories');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors()); // Разрешает запросы с вашего React-приложения
-app.use(express.json()); // Позволяет принимать JSON в body (для POST запросов)
+app.use(
+  cors({
+    origin(origin, callback) {
+      callback(null, !origin || allowedOrigins.includes(origin));
+    },
+  })
+);
+app.use(express.json());
 
-// Routes
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Express сервер работает!' });
+});
+
+app.post('/api/auth/login', login);
+app.get('/api/auth/me', requireAuth, (req, res) => {
+  res.json({ username: req.user });
 });
 
 app.use('/api/products', productsRouter);
 app.use('/api/slides', slidesRouter);
 app.use('/api/categories', categoriesRouter);
 
-// Запуск сервера
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });

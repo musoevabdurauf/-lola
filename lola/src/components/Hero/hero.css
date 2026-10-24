@@ -25,12 +25,8 @@
   font-weight: 800;
   margin: 0;
   line-height: 1.2;
-  text-shadow: none;
-  background: var(--secondary-pink);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  p{
+  color: var(--text-dark);
+  p {
     text-shadow: none;
   }
 }

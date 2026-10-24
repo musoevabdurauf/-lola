@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const { requireAuth } = require('../auth');
 
 const router = express.Router();
 const categoriesPath = path.join(__dirname, '../data/categories.json');
@@ -54,7 +55,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create category
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);
@@ -73,7 +74,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update category
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);
@@ -92,7 +93,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE category
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);
