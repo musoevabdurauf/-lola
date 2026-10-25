@@ -9,7 +9,7 @@ import QuantitySelector from '../../components/QuantitySelector/quantitySelector
 import OrderSection from '../../components/OrderSection/orderSection'
 import DeliveryInfo from '../../components/DeliveryInfo/deliveryInfo'
 import { ArrowLeftIcon, ChevronRightIcon, FlowerIcon } from '../../components/Icons/icons'
-import './productDetail.css'
+import './productdetail.css'
 
 const ProductDetail = () => {
   const { id } = useParams()

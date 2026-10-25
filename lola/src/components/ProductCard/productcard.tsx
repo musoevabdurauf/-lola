@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartIcon } from '../Icons/icons'
-import './productCard.css'
+import './productcard.css'
 
 interface ProductCardProps {
   id: string
