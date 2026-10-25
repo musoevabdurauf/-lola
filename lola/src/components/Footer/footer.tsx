@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import callIcon from '../../assets/Call.png'
+import { ClockIcon, MapPinIcon, PhoneIcon } from '../Icons/icons'
 import './footer.css'
 
 const Footer = () => {
@@ -43,15 +43,15 @@ const Footer = () => {
             <h3 className="footer-title">Контакты</h3>
             <ul className="footer-contact">
               <li>
-                <img className="contact-icon" src={callIcon} alt="" />
+                <PhoneIcon className="footer-contact-icon" size={18} />
                 <a id='tel'  href="tel:+992113550707">+992 113 55 07 07</a>
               </li>
               <li>
-                <span className="contact-icon">📍</span>
+                <MapPinIcon className="footer-contact-icon" size={18} />
                 <span>г. Душанбе</span>
               </li>
               <li>
-                <span className="contact-icon">⏰</span>
+                <ClockIcon className="footer-contact-icon" size={18} />
                 <span>Ежедневно 9:00 - 21:00</span>
               </li>
             </ul>

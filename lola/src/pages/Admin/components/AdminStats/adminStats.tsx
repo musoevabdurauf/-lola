@@ -1,8 +1,9 @@
+import { BanknoteIcon, FlameIcon, PackageIcon, SparklesIcon } from '../../../../components/Icons/icons'
 import type { Product } from '../../../../types'
 
 const AdminStats = ({ products }: { products: Product[] }) => {
   const totalProducts = products.length
-  const totalValue = products.reduce((sum, p) => sum + (p.price || 0), 0)
+  const totalValue = products.reduce((sum, p) => sum + (Number(p.price) || 0), 0)
   const newProducts = products.filter(p => p.isNew).length
   const hitProducts = products.filter(p => p.isHit).length
 
@@ -10,25 +11,25 @@ const AdminStats = ({ products }: { products: Product[] }) => {
     {
       label: 'Всего продуктов',
       value: totalProducts,
-      icon: '📦',
+      icon: <PackageIcon size={24} />,
       color: '#FF6B9D'
     },
     {
       label: 'Общая стоимость',
       value: `${totalValue.toLocaleString('ru-RU')} с.`,
-      icon: '💰',
+      icon: <BanknoteIcon size={24} />,
       color: '#C44569'
     },
     {
       label: 'Новинки',
       value: newProducts,
-      icon: '✨',
+      icon: <SparklesIcon size={24} />,
       color: '#6BCB77'
     },
     {
       label: 'Хиты продаж',
       value: hitProducts,
-      icon: '🔥',
+      icon: <FlameIcon size={24} />,
       color: '#FFA500'
     }
   ]
@@ -37,7 +38,7 @@ const AdminStats = ({ products }: { products: Product[] }) => {
     <div className="admin-stats">
       {stats.map((stat, index) => (
         <div key={index} className="stat-card" style={{ borderColor: stat.color }}>
-          <div className="stat-icon" style={{ backgroundColor: stat.color + '20' }}>
+          <div className="stat-icon" style={{ backgroundColor: stat.color + '20', color: stat.color }}>
             {stat.icon}
           </div>
           <div className="stat-info">

@@ -36,11 +36,19 @@
   border: 1px solid rgba(255, 107, 157, 0.1);
 }
 
-.section-title {
+.delivery-section .section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 2rem;
   font-weight: 800;
   margin: 0 0 30px 0;
   color: #1a1a1a;
+}
+
+.delivery-section .section-title svg {
+  color: #C44569;
+  flex-shrink: 0;
 }
 
 /* Delivery Info Card */
@@ -106,7 +114,9 @@
 }
 
 .payment-icon {
-  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  color: #C44569;
   margin-bottom: 15px;
 }
 
@@ -140,7 +150,9 @@
 }
 
 .contact-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 15px 40px;
   background: linear-gradient(135deg, #C44569, #FF6B9D);
   color: white;
@@ -182,7 +194,7 @@
     padding: 30px 20px;
   }
 
-  .section-title {
+  .delivery-section .section-title {
     font-size: 1.5rem;
   }
 

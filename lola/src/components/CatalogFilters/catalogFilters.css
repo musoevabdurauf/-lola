@@ -2,178 +2,323 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color: var(--text-dark);
   background: var(--white);
-  border-radius: 20px;
-  padding: 25px;
-  border: 2px solid rgba(255, 107, 157, 0.1);
-  box-shadow: var(--shadow);
-  height: fit-content;
-  position: sticky;
-  top: 20px;
+  border-radius: 24px;
+  padding: 24px 28px;
+  border: 1px solid rgba(196, 69, 105, 0.12);
+  box-shadow: 0 10px 30px rgba(196, 69, 105, 0.06);
   display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.filters-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   flex-wrap: wrap;
-  gap: 20px;
+}
+
+.filters-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filters-heading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  color: var(--secondary-pink);
+  background: #fff0f5;
+}
+
+.filters-heading h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.filters-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a25a70;
+  background: #fff5f8;
+  border-radius: 999px;
+  padding: 4px 11px;
+  white-space: nowrap;
+}
+
+.filters-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid rgba(196, 69, 105, 0.18);
+  border-radius: 999px;
+  background: white;
+  color: #a25a70;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filters-reset:hover:not(:disabled) {
+  border-color: var(--secondary-pink);
+  color: var(--secondary-pink);
+  background: #fff5f8;
+}
+
+.filters-reset:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .filter-section {
-  margin-bottom: 20px;
-  flex: 1 1 300px;
   min-width: 0;
 }
 
-.filter-section:last-child {
-  margin-bottom: 0;
-}
-
-.filter-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0 0 20px 0;
-  color: var(--text-dark);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.filter-title svg {
-  color: var(--secondary-pink);
-  flex-shrink: 0;
-}
-
 .filter-options {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   align-items: flex-start;
 }
 
-.filter-options-horizontal {
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 8px;
-}
-
-.filter-options-horizontal .filter-option {
-  width: 100%;
-  padding: 8px 14px;
-  font-size: 0.9rem;
-}
-
 .filter-option {
-  padding: 12px 20px;
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 1rem;
+  flex: 0 0 auto;
+  width: auto;
+  padding: 8px 16px;
+  background: #fffdfd;
+  border: 1px solid #eedde3;
+  border-radius: 999px;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #666;
+  font-family: inherit;
+  color: #6b5a60;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   text-align: left;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .filter-option:hover {
-  background: var(--cream);
-  border-color: rgba(255, 107, 157, 0.3);
+  border-color: rgba(255, 107, 157, 0.5);
+  background: #fff5f8;
   color: var(--secondary-pink);
 }
 
 .filter-option.active {
-  background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+  background: linear-gradient(135deg, #c44569, #ff6b9d);
   color: var(--white);
   border-color: transparent;
-  box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+  box-shadow: 0 5px 14px rgba(196, 69, 105, 0.25);
 }
 
-.filter-option.active svg {
-  color: var(--white);
+.filters-bottom {
+  display: grid;
+  grid-template-columns: minmax(200px, auto) minmax(190px, auto) minmax(240px, 1fr);
+  gap: 22px;
+  align-items: end;
+  border-top: 1px solid #f4e8ec;
+  padding-top: 18px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.filter-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #a08890;
+}
+
+.filter-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid #eedde3;
+  border-radius: 12px;
+  background: #fffdfd;
+  color: #6b5a60;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-toggle:hover {
+  border-color: rgba(255, 107, 157, 0.5);
+  color: var(--secondary-pink);
+}
+
+.filter-toggle.active {
+  border-color: rgba(255, 107, 157, 0.55);
+  background: #fff0f5;
+  color: var(--secondary-pink);
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.filter-select {
+  width: 100%;
+  height: 42px;
+  appearance: none;
+  padding: 0 38px 0 14px;
+  border: 1px solid #eedde3;
+  border-radius: 12px;
+  background: #fffdfd;
+  color: #4a3d42;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--secondary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.12);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b18a97;
+  pointer-events: none;
 }
 
 .price-filter {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin-bottom: 15px;
-  align-items: flex-start;
+  align-items: center;
+  gap: 8px;
 }
 
 .price-input {
   flex: 1;
-  padding: 12px 15px;
-  border: 2px solid rgba(255, 107, 157, 0.15);
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  min-width: 0;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #eedde3;
+  border-radius: 12px;
+  background: #fffdfd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #4a3d42;
   outline: none;
+  transition: all 0.25s ease;
 }
 
 .price-input:focus {
   border-color: var(--secondary-pink);
-  box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.12);
 }
 
-.price-separator {
-  color: #999;
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 0 5px;
+.price-input::-webkit-outer-spin-button,
+.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.apply-filter-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
-  color: var(--white);
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+.price-input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
-.apply-filter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(196, 69, 105, 0.4);
+.price-dash {
+  color: #c9b4bc;
+  flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {
-  .catalog-filters {
-    position: static;
-    flex-direction: column;
+  .filters-bottom {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .filter-options {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  .filter-group-price {
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 768px) {
   .catalog-filters {
-    padding: 25px 20px;
-  }
-
-  .filter-title {
-    font-size: 1.1rem;
+    padding: 20px;
+    gap: 16px;
+    border-radius: 20px;
   }
 
   .filter-option {
-    padding: 10px 15px;
-    font-size: 0.95rem;
+    padding: 7px 13px;
+    font-size: 0.85rem;
   }
 }
 
-@media (max-width: 480px) {
-  .catalog-filters {
-    padding: 20px 15px;
-    border-radius: 16px;
+@media (max-width: 560px) {
+  .filters-top {
+    align-items: flex-start;
+  }
+
+  .filters-bottom {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .filters-heading h3 {
+    font-size: 1rem;
+  }
+
+  .filters-count {
+    display: none;
   }
 
   .filter-options {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .filter-option {
+    padding: 7px 12px;
+    font-size: 0.82rem;
+  }
+
+  .price-dash {
+    display: none;
+  }
+
+  .price-filter {
+    gap: 6px;
   }
 }

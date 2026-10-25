@@ -11,6 +11,7 @@ export interface Product {
   height: string
   care: string
   image?: string
+  stock?: number
 }
 
 export interface Category {
@@ -26,4 +27,29 @@ export interface Slide {
   image: string
   title: string
   description: string
+}
+
+export type OrderStatus = 'new' | 'confirmed' | 'delivered' | 'cancelled'
+
+export interface Order {
+  id: string
+  productId: string
+  productName: string
+  productImage?: string
+  price: number
+  quantity: number
+  total: number
+  customerName: string
+  customerPhone: string
+  comment?: string
+  status: OrderStatus
+  createdAt: string
+}
+
+export interface CreateOrderPayload {
+  productId: string
+  quantity: number
+  customerName: string
+  customerPhone: string
+  comment?: string
 }

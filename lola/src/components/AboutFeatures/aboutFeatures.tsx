@@ -1,7 +1,9 @@
+import { CameraIcon, FlowerIcon, GiftIcon, SparklesIcon, ZapIcon } from '../Icons/icons'
+import type { ReactNode } from 'react'
 import './aboutFeatures.css'
 
 interface Feature {
-  icon: string
+  icon: ReactNode
   title: string
   description: string
 }
@@ -9,22 +11,22 @@ interface Feature {
 const AboutFeatures = () => {
   const features: Feature[] = [
     {
-      icon: '🌸',
+      icon: <FlowerIcon size={38} />,
       title: 'Свои флористы',
       description: 'Каждый букет собирают наши флористы вручную, в нашей студии в Душанбе. Без подсохших цветов.'
     },
     {
-      icon: '📸',
+      icon: <CameraIcon size={38} />,
       title: 'Фото перед отправкой',
       description: 'Перед курьером отправляем фото букета вам в WhatsApp. Не нравится — пересоберём бесплатно.'
     },
     {
-      icon: '⚡',
+      icon: <ZapIcon size={38} />,
       title: 'Быстрая доставка',
       description: 'Доставка по Душанбе за 2–3 часа. Заявка через WhatsApp — быстрое подтверждение.'
     },
     {
-      icon: '💝',
+      icon: <GiftIcon size={38} />,
       title: 'Анонимная доставка',
       description: 'Хотите сделать сюрприз? Мы доставим цветы анонимно, чтобы сохранить момент тайны.'
     }
@@ -33,7 +35,10 @@ const AboutFeatures = () => {
   return (
     <section className="about-section">
       <div className="section-header">
-        <span className="section-badge">✨ Преимущества</span>
+        <span className="section-badge">
+          <SparklesIcon size={16} />
+          Преимущества
+        </span>
         <h2 className="section-title">Почему выбирают нас</h2>
       </div>
       <div className="features-grid">

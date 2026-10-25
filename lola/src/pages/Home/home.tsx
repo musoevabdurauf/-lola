@@ -36,17 +36,13 @@ const Home = () => {
     }
   }, [])
 
-  if (loading) {
-    return <div className="home">Загрузка...</div>
-  }
-
   return (
     <div className="home">
       {/* Hero Section */}
       <Hero />
 
       {/* Featured Products Section */}
-      <FeaturedProducts products={products} />
+      <FeaturedProducts products={products} loading={loading} />
 
       {/* Categories Section */}
       <Categories />

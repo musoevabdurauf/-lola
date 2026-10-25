@@ -71,8 +71,9 @@
   font-size: 1rem;
 }
 
-.contact-icon {
-  font-size: 1.2rem;
+.footer-contact-icon {
+  color: var(--primary-pink);
+  flex-shrink: 0;
 }
 
 .footer-contact a {
@@ -130,9 +131,6 @@
   justify-content: center;
   color: white;
   
-}
-.contact-icon{
-  width: 30px;
 }
 #tel{
   color: var(--text-dark);

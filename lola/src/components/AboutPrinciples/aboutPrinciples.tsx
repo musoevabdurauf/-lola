@@ -1,3 +1,4 @@
+import { TargetIcon } from '../Icons/icons'
 import './aboutPrinciples.css'
 
 interface Principle {
@@ -28,7 +29,10 @@ const AboutPrinciples = () => {
   return (
     <section className="about-section">
       <div className="section-header">
-        <span className="section-badge">🎯 Принципы</span>
+        <span className="section-badge">
+          <TargetIcon size={16} />
+          Принципы
+        </span>
         <h2 className="section-title">Наши принципы</h2>
       </div>
       <div className="principles-list">

@@ -1,10 +1,14 @@
+import { BookOpenIcon } from '../Icons/icons'
 import './aboutHistory.css'
 
 const AboutHistory = () => {
   return (
     <section className="about-section">
       <div className="section-header">
-        <span className="section-badge">📖 История</span>
+        <span className="section-badge">
+          <BookOpenIcon size={16} />
+          История
+        </span>
         <h2 className="section-title">Наша история</h2>
       </div>
       <div className="about-text-container">

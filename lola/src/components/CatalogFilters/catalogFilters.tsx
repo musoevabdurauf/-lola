@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react'
 import { categoriesApi } from '../../services/CategoriesApi'
+import {
+  ArrowUpDownIcon,
+  BanknoteIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  GridIcon,
+  RotateCcwIcon,
+  SparklesIcon,
+} from '../Icons/icons'
 import './catalogFilters.css'
 
 interface Category {
@@ -21,14 +30,30 @@ interface CatalogFiltersProps {
   setMinPrice: (value: string) => void
   maxPrice: string
   setMaxPrice: (value: string) => void
-  onApplyPriceFilter: () => void
   showHitOnly: boolean
   setShowHitOnly: (value: boolean) => void
   showNewOnly: boolean
   setShowNewOnly: (value: boolean) => void
+  onReset: () => void
+  resultCount: number
 }
 
-const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, setMinPrice, maxPrice, setMaxPrice, onApplyPriceFilter, showHitOnly, setShowHitOnly, showNewOnly, setShowNewOnly }: CatalogFiltersProps) => {
+const CatalogFilters = ({
+  category,
+  setCategory,
+  sortBy,
+  setSortBy,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  showHitOnly,
+  setShowHitOnly,
+  showNewOnly,
+  setShowNewOnly,
+  onReset,
+  resultCount,
+}: CatalogFiltersProps) => {
   const [categories, setCategories] = useState<Category[]>([
     { id: 'all', name: 'Все' }
   ])
@@ -66,120 +91,124 @@ const CatalogFilters = ({ category, setCategory, sortBy, setSortBy, minPrice, se
     { id: 'new', name: 'Сначала новинки' },
   ]
 
+  const hasActiveFilters =
+    category !== 'all' ||
+    showHitOnly ||
+    showNewOnly ||
+    Boolean(minPrice) ||
+    Boolean(maxPrice) ||
+    sortBy !== 'popular'
+
   return (
     <aside className="catalog-filters">
+      <div className="filters-top">
+        <div className="filters-heading">
+          <span className="filters-heading-icon"><GridIcon size={18} /></span>
+          <h3>Фильтры</h3>
+          <span className="filters-count">{resultCount} товаров</span>
+        </div>
+        <button
+          type="button"
+          className="filters-reset"
+          onClick={onReset}
+          disabled={!hasActiveFilters}
+        >
+          <RotateCcwIcon size={15} />
+          Сбросить
+        </button>
+      </div>
+
       <div className="filter-section">
-        <h3 className="filter-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-          </svg>
-          Категории
-        </h3>
-        <div className="filter-options">
+        <div className="filter-options filter-options-scroll">
           {categories.map((cat) => (
             <button
+              type="button"
               key={cat.id}
               className={`filter-option ${category === cat.id ? 'active' : ''}`}
               onClick={() => setCategory(cat.id)}
+              aria-pressed={category === cat.id}
             >
-              {category === cat.id && (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              )}
               {cat.name}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="filter-section">
-        <h3 className="filter-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-          Специальные
-        </h3>
-        <div className="filter-options">
-          <button
-            className={`filter-option ${showHitOnly ? 'active' : ''}`}
-            onClick={() => setShowHitOnly(!showHitOnly)}
-          >
-            {showHitOnly && (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            )}
-            Хиты продаж
-          </button>
-          <button
-            className={`filter-option ${showNewOnly ? 'active' : ''}`}
-            onClick={() => setShowNewOnly(!showNewOnly)}
-          >
-            {showNewOnly && (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            )}
-            Новинки
-          </button>
-        </div>
-      </div>
-
-      <div className="filter-section">
-        
-        <h3 className="filter-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <polyline points="19 12 12 19 5 12"></polyline>
-          </svg>
-          Сортировка
-        </h3>
-        <div className="filter-options filter-options-horizontal">
-          {sortOptions.map((option) => (
+      <div className="filters-bottom">
+        <div className="filter-group">
+          <span className="filter-group-title">
+            <SparklesIcon size={15} />
+            Подборка
+          </span>
+          <div className="filter-toggles">
             <button
-              key={option.id}
-              className={`filter-option ${sortBy === option.id ? 'active' : ''}`}
-              onClick={() => setSortBy(option.id)}
+              type="button"
+              className={`filter-toggle ${showHitOnly ? 'active' : ''}`}
+              onClick={() => setShowHitOnly(!showHitOnly)}
+              aria-pressed={showHitOnly}
             >
-              {sortBy === option.id && (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              )}
-              {option.name}
+              {showHitOnly && <CheckIcon size={14} />}
+              Хиты
             </button>
-          ))}
+            <button
+              type="button"
+              className={`filter-toggle ${showNewOnly ? 'active' : ''}`}
+              onClick={() => setShowNewOnly(!showNewOnly)}
+              aria-pressed={showNewOnly}
+            >
+              {showNewOnly && <CheckIcon size={14} />}
+              Новинки
+            </button>
+          </div>
         </div>
-      
-        <h3 className="filter-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
-            <path d="M12 18V6"></path>
-          </svg>
-          Цена
-        </h3>
-        <div className="price-filter">
-          <input 
-            type="number" 
-            placeholder="От" 
-            className="price-input" 
-            value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
-          />
-          <input 
-            type="number" 
-            placeholder="До" 
-            className="price-input" 
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
-          />
+
+        <div className="filter-group">
+          <span className="filter-group-title">
+            <ArrowUpDownIcon size={15} />
+            Сортировка
+          </span>
+          <div className="select-wrap">
+            <select
+              className="filter-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              aria-label="Сортировка товаров"
+            >
+              {sortOptions.map((option) => (
+                <option key={option.id} value={option.id}>{option.name}</option>
+              ))}
+            </select>
+            <ChevronDownIcon size={16} className="select-arrow" />
+          </div>
         </div>
-        <button className="apply-filter-btn" onClick={onApplyPriceFilter}>Применить</button>
+
+        <div className="filter-group filter-group-price">
+          <span className="filter-group-title">
+            <BanknoteIcon size={15} />
+            Цена, сомони
+          </span>
+          <div className="price-filter">
+            <input
+              type="number"
+              min="0"
+              placeholder="От"
+              className="price-input"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              aria-label="Минимальная цена"
+            />
+            <span className="price-dash">—</span>
+            <input
+              type="number"
+              min="0"
+              placeholder="До"
+              className="price-input"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              aria-label="Максимальная цена"
+            />
+          </div>
+        </div>
       </div>
     </aside>
   )

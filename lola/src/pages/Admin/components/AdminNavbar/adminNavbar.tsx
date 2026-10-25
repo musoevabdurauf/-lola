@@ -1,4 +1,13 @@
 import { Link, NavLink } from 'react-router-dom'
+import {
+  ClipboardListIcon,
+  FlowerIcon,
+  FolderIcon,
+  HomeIcon,
+  ImagesIcon,
+  LogOutIcon,
+  PackageIcon,
+} from '../../../../components/Icons/icons'
 
 const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
   const menuClass = ({ isActive }: { isActive: boolean }) =>
@@ -9,26 +18,36 @@ const AdminNavbar = ({ onLogout }: { onLogout: () => void }) => {
       <div className="admin-navbar-container">
         <div className="admin-navbar-logo">
           <Link to="/admin">
-            🌸 Lola Admin
+            <FlowerIcon size={24} />
+            Lola Admin
           </Link>
         </div>
         <div className="admin-navbar-menu">
           <NavLink to="/admin" end className={menuClass}>
-            📦 Продукты
+            <PackageIcon size={18} />
+            Продукты
+          </NavLink>
+          <NavLink to="/admin/orders" className={menuClass}>
+            <ClipboardListIcon size={18} />
+            Заказы
           </NavLink>
           <NavLink to="/admin/slides" className={menuClass}>
-            🖼️ Слайды
+            <ImagesIcon size={18} />
+            Слайды
           </NavLink>
           <NavLink to="/admin/categories" className={menuClass}>
-            📁 Категории
+            <FolderIcon size={18} />
+            Категории
           </NavLink>
         </div>
         <div className="admin-navbar-actions">
           <Link to="/" className="admin-navbar-link">
-            🏠 На сайт
+            <HomeIcon size={17} />
+            На сайт
           </Link>
           <button className="admin-navbar-logout" onClick={onLogout}>
-            🚪 Выйти
+            <LogOutIcon size={17} />
+            Выйти
           </button>
         </div>
       </div>

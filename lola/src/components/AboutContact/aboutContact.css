@@ -19,7 +19,9 @@
 }
 
 .section-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: linear-gradient(135deg, #FF6B9D, #C44569);
   color: white;
   padding: 8px 20px;
@@ -76,13 +78,16 @@
   box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
 }
 
-.contact-icon {
-  font-size: 3rem;
+.about-contact-icon {
+  color: #C44569;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.4s ease;
 }
 
-.contact-item:hover .contact-icon {
+.contact-item:hover .about-contact-icon {
   transform: scale(1.15) rotate(10deg);
 }
 
@@ -137,8 +142,9 @@
     gap: 15px;
   }
 
-  .contact-icon {
-    font-size: 2.5rem;
+  .about-contact-icon svg {
+    width: 28px;
+    height: 28px;
   }
 
   .contact-value {

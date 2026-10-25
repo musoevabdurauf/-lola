@@ -5,6 +5,7 @@ const { login, requireAuth } = require('./auth');
 const productsRouter = require('./routers/products');
 const slidesRouter = require('./routers/slides');
 const categoriesRouter = require('./routers/categories');
+const ordersRouter = require('./routers/orders');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.get('/api/auth/me', requireAuth, (req, res) => {
 app.use('/api/products', productsRouter);
 app.use('/api/slides', slidesRouter);
 app.use('/api/categories', categoriesRouter);
+app.use('/api/orders', ordersRouter);
 
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);

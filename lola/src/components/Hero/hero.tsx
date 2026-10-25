@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { slidesApi } from '../../services/SlidesApi'
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '../Icons/icons'
 import './hero.css'
 
 interface Slide {
@@ -57,46 +58,67 @@ const Hero = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
   }
 
-  if (loading || slides.length === 0) {
+  if (loading) {
+    return (
+      <section className="hero" aria-label="Загрузка баннера">
+        <div className="hero-inner hero-inner-skeleton" aria-hidden="true">
+          <div className="hero-content hero-content-skeleton">
+            <div className="hero-skeleton-block hero-skeleton-title" />
+            <div className="hero-skeleton-block hero-skeleton-line" />
+            <div className="hero-skeleton-block hero-skeleton-line hero-skeleton-line-short" />
+            <div className="hero-skeleton-block hero-skeleton-button" />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (slides.length === 0) {
     return null
   }
 
   return (
-    <section className="hero">
-      <div className="hero-container">
+    <section className="hero" aria-label="Слайдер">
+      <div className="hero-inner">
+        <div className="hero-background" aria-hidden="true">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            >
+              <img src={slide.image} alt="" className="hero-slide-image" />
+            </div>
+          ))}
+          <div className="hero-overlay" />
+        </div>
+
         <div className="hero-content">
           <h1 className="hero-title">{slides[currentSlide].title}</h1>
           <p className="hero-description">{slides[currentSlide].description}</p>
-          <Link to="/catalog" className="hero-button">Смотреть каталог</Link>
+          <Link to="/catalog" className="hero-button">
+            Смотреть каталог
+            <ArrowRightIcon size={20} />
+          </Link>
         </div>
 
-        <div className="hero-slider">
-          <div className="slider-container">
+        <div className="hero-controls">
+          <div className="hero-dots">
             {slides.map((slide, index) => (
-              <div
+              <button
                 key={slide.id}
-                className={`slide ${index === currentSlide ? 'active' : ''}`}
-              >
-                <img src={slide.image} alt={slide.title} className="slide-image" />
-              </div>
+                className={`hero-dot ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Слайд ${index + 1}`}
+              />
             ))}
-
-            <button className="slider-button prev" onClick={prevSlide}>
-              ‹
+          </div>
+          <div className="hero-arrows">
+            <button className="hero-arrow" onClick={prevSlide} aria-label="Предыдущий слайд">
+              <ChevronLeftIcon size={22} />
             </button>
-            <button className="slider-button next" onClick={nextSlide}>
-              ›
+            <button className="hero-arrow" onClick={nextSlide} aria-label="Следующий слайд">
+              <ChevronRightIcon size={22} />
             </button>
-
-            <div className="slider-dots">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  className={`dot ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => setCurrentSlide(index)}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </div>

@@ -12,7 +12,9 @@
 }
 
 .section-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: linear-gradient(135deg, #FF6B9D, #C44569);
   color: white;
   padding: 8px 20px;

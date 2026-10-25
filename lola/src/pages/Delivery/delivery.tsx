@@ -1,3 +1,4 @@
+import { BanknoteIcon, CameraIcon, CreditCardIcon, GiftIcon, PhoneIcon, SmartphoneIcon, TruckIcon } from '../../components/Icons/icons'
 import './delivery.css'
 
 const Delivery = () => {
@@ -8,7 +9,10 @@ const Delivery = () => {
         
         <div className="delivery-sections">
           <section className="delivery-section">
-            <h2 className="section-title">🚚 Условия доставки</h2>
+            <h2 className="section-title">
+              <TruckIcon size={26} />
+              Условия доставки
+            </h2>
             <div className="delivery-info-card">
               <div className="info-item">
                 <h3 className="info-title">По Душанбе</h3>
@@ -28,20 +32,23 @@ const Delivery = () => {
           </section>
 
           <section className="delivery-section">
-            <h2 className="section-title">💳 Способы оплаты</h2>
+            <h2 className="section-title">
+              <CreditCardIcon size={26} />
+              Способы оплаты
+            </h2>
             <div className="payment-methods">
               <div className="payment-card">
-                <div className="payment-icon">💵</div>
+                <div className="payment-icon"><BanknoteIcon size={46} /></div>
                 <h3 className="payment-title">Наличными</h3>
                 <p className="payment-desc">Оплата курьеру при получении</p>
               </div>
               <div className="payment-card">
-                <div className="payment-icon">📱</div>
+                <div className="payment-icon"><SmartphoneIcon size={46} /></div>
                 <h3 className="payment-title">Перевод</h3>
                 <p className="payment-desc">Перевод на номер телефона</p>
               </div>
               <div className="payment-card">
-                <div className="payment-icon">💳</div>
+                <div className="payment-icon"><CreditCardIcon size={46} /></div>
                 <h3 className="payment-title">Карта</h3>
                 <p className="payment-desc">Оплата банковской картой</p>
               </div>
@@ -49,20 +56,27 @@ const Delivery = () => {
           </section>
 
           <section className="delivery-section">
-            <h2 className="section-title">📸 Фото перед отправкой</h2>
+            <h2 className="section-title">
+              <CameraIcon size={26} />
+              Фото перед отправкой
+            </h2>
             <div className="photo-service">
               <p className="photo-text">
                 Мы отправим вам фото готового букета в WhatsApp перед доставкой, 
                 чтобы вы были уверены в качестве заказа.
               </p>
               <a href="tel:+992750545471" className="contact-button">
-                📞 Связаться с нами
+                <PhoneIcon size={20} />
+                Связаться с нами
               </a>
             </div>
           </section>
 
           <section className="delivery-section">
-            <h2 className="section-title">💝 Анонимная доставка</h2>
+            <h2 className="section-title">
+              <GiftIcon size={26} />
+              Анонимная доставка
+            </h2>
             <div className="anonymous-delivery">
               <p className="anonymous-text">
                 Сделаем сюрприз получателю! Курьер передаст букет без указания отправителя,

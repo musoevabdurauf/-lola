@@ -8,8 +8,10 @@ import  ProductDetail  from './pages/ProductDetail/productdetail';
 import  About  from './pages/About/about';
 import  Favorite  from './pages/Favorite/favorite';
 import Admin from './pages/Admin/admin';
+import AdminOrders from './pages/AdminOrders/adminOrders';
 import AdminSlides from './pages/AdminSlides/adminSlides';
 import AdminCategories from './pages/AdminCategories/adminCategories';
+import ScrollToTop from './components/ScrollToTop/scrollToTop';
 import NotFound from './pages/NotFound/notFound';
 import Delivery from './pages/Delivery/delivery';
 import Contact from './pages/Contact/contact';
@@ -20,9 +22,11 @@ import './App.css';
 export const App: React.FC = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Admin routes - separate from main layout */}
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/admin/slides" element={<AdminSlides />} />
         <Route path="/admin/categories" element={<AdminCategories />} />
 

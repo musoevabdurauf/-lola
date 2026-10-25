@@ -1,15 +1,6 @@
+import type { Product } from '../../types'
 import ProductCard from '../ProductCard/productcard'
 import './catalogGrid.css'
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  badge: string
-  isNew: boolean
-  isHit: boolean
-  image?: string
-}
 
 interface CatalogGridProps {
   products: Product[]
@@ -29,6 +20,7 @@ const CatalogGrid = ({ products }: CatalogGridProps) => {
             isNew={product.isNew}
             isHit={product.isHit}
             image={product.image}
+            stock={product.stock}
           />
         ))}
       </div>

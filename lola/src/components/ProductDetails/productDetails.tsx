@@ -1,3 +1,4 @@
+import { DropletIcon, FlowerIcon, RulerIcon } from '../Icons/icons'
 import './productDetails.css'
 
 interface ProductDetailsProps {
@@ -7,20 +8,23 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ composition, height, care }: ProductDetailsProps) => {
+  const details = [
+    { label: 'Состав', value: composition, Icon: FlowerIcon },
+    { label: 'Высота', value: height, Icon: RulerIcon },
+    { label: 'Уход', value: care, Icon: DropletIcon },
+  ]
+
   return (
-    <div className="product-details">
-      <div className="detail-item">
-        <span className="detail-label">🌸 Состав:</span>
-        <span className="detail-value">{composition}</span>
-      </div>
-      <div className="detail-item">
-        <span className="detail-label">📏 Высота:</span>
-        <span className="detail-value">{height}</span>
-      </div>
-      <div className="detail-item">
-        <span className="detail-label">💧 Уход:</span>
-        <span className="detail-value">{care}</span>
-      </div>
+    <div className="pd-specs">
+      {details.map(({ label, value, Icon }) => (
+        <div className="pd-spec" key={label}>
+          <span className="pd-spec-icon"><Icon size={19} /></span>
+          <div className="pd-spec-text">
+            <span className="pd-spec-label">{label}</span>
+            <span className="pd-spec-value">{value}</span>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

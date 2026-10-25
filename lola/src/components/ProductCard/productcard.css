@@ -32,7 +32,7 @@
   color: var(--white);
   padding: 4px 12px;
   border-radius: 25px;
-  font-size: 0.5rem;
+  font-size: 0.72rem;
   font-weight: 500;
   z-index: 1;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
@@ -41,12 +41,12 @@
 }
 
 .product-badge.new {
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(90, 179, 94, 0.1));
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(90, 179, 94, 0.8));
   box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .product-badge.hit {
-  background: linear-gradient(135deg, rgba(255, 111, 185, 0.1), rgba(255, 192, 201, 0.1));
+  background: linear-gradient(135deg, rgba(255, 111, 185, 0.8), rgba(255, 192, 201, 0.8));
   box-shadow: 0 4px 12px rgba(255, 0, 85, 0.3);
 }
 
@@ -69,10 +69,18 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.favorite-button.active {
+  color: var(--secondary-pink);
+}
+
 .favorite-button.active svg {
-  fill: var(--secondary-pink);
-  stroke: var(--secondary-pink);
+  fill: currentColor;
   animation: heartBeat 0.5s ease;
+}
+
+.favorite-button svg {
+  color: #7a7a7a;
+  transition: color 0.25s ease;
 }
 
 @keyframes heartBeat {
@@ -101,6 +109,19 @@
   pointer-events: none;
 }
 
+.product-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
 .product-info {
   padding: 24px;
   background: linear-gradient(to bottom, var(--white), var(--cream));
@@ -126,7 +147,45 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 16px 0;
+  margin: 0;
+}
+
+.product-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.product-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4d7c59;
+  white-space: nowrap;
+}
+
+.product-stock.low {
+  color: #b97812;
+}
+
+.product-stock.out {
+  color: #b04a56;
+}
+
+.product-stock.unknown {
+  color: #8a8a8a;
+}
+
+.stock-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
 }
 
 .product-button {
@@ -169,5 +228,11 @@
   .favorite-button {
     width: 38px;
     height: 38px;
+  }
+
+  .product-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 }

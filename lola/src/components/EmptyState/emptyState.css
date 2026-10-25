@@ -9,9 +9,16 @@
 }
 
 .empty-icon {
-  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  color: #FF6B9D;
   margin-bottom: 30px;
   animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.empty-icon svg {
+  width: 96px;
+  height: 96px;
 }
 
 @keyframes heartbeat {
@@ -60,9 +67,9 @@
     padding: 60px 20px;
   }
 
-  .empty-icon {
-    font-size: 4rem;
-    margin-bottom: 25px;
+  .empty-icon svg {
+    width: 64px;
+    height: 64px;
   }
 
   .empty-title {

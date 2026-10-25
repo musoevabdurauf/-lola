@@ -1,58 +1,75 @@
-.quantity-wrapper {
+.pd-quantity {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
-.quantity-label {
+.pd-quantity-label {
+  font-size: 0.74rem;
   font-weight: 700;
-  font-size: 1rem;
-  color: #1a1a1a;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a08890;
 }
 
-.quantity-selector {
-  display: flex;
+.pd-quantity-control {
+  display: inline-flex;
   align-items: center;
-  border: 2px solid rgba(255, 107, 157, 0.2);
-  border-radius: 15px;
+  width: fit-content;
+  border: 1px solid #eedde3;
+  border-radius: 14px;
   overflow: hidden;
   background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  max-width: 200px;
 }
 
-.quantity-btn {
-  width: 55px;
-  height: 55px;
+.pd-quantity-btn {
+  width: 44px;
+  height: 44px;
   border: none;
-  background: #fff5f8;
-  font-size: 1.8rem;
-  font-weight: 700;
+  background: #fff7fa;
+  color: #c44569;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: #C44569;
+  transition: all 0.2s ease;
 }
 
-.quantity-btn:hover:not(:disabled) {
-  background: #FF6B9D;
+.pd-quantity-btn:hover:not(:disabled) {
+  background: #ff6b9d;
   color: white;
 }
 
-.quantity-btn:disabled {
-  opacity: 0.4;
+.pd-quantity-btn:disabled {
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
-.quantity-value {
-  width: 70px;
+.pd-quantity-value {
+  min-width: 52px;
   text-align: center;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #1a1a1a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
 }
 
-@media (max-width: 768px) {
-  .quantity-selector {
-    max-width: 100%;
+.pd-quantity-hint {
+  font-size: 0.76rem;
+  color: #a08d94;
+}
+
+@media (max-width: 640px) {
+  .pd-quantity-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pd-quantity-btn {
+    width: 48px;
+    height: 46px;
+  }
+
+  .pd-quantity-value {
+    flex: 1;
   }
 }

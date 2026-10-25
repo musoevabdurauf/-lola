@@ -1,38 +1,33 @@
+import { CameraIcon, GiftIcon, TruckIcon } from '../Icons/icons'
 import './deliveryInfo.css'
 
-interface DeliveryItem {
-  icon: string
-  title: string
-  description: string
-}
-
 const DeliveryInfo = () => {
-  const deliveryItems: DeliveryItem[] = [
+  const deliveryItems = [
     {
-      icon: '🚚',
-      title: 'Быстрая доставка',
-      description: 'Доставка по Душанбе за 2–3 часа'
+      Icon: TruckIcon,
+      title: 'Доставка 2–3 часа',
+      description: 'По Душанбе, ежедневно с 9:00 до 21:00',
     },
     {
-      icon: '📸',
-      title: 'Фото перед отправкой',
-      description: 'Отправим фото букета в WhatsApp'
+      Icon: CameraIcon,
+      title: 'Фото до отправки',
+      description: 'Пришлём фото букета в WhatsApp',
     },
     {
-      icon: '💝',
-      title: 'Анонимная доставка',
-      description: 'Сделаем сюрприз получателю'
-    }
+      Icon: GiftIcon,
+      title: 'Анонимно',
+      description: 'Сохраним сюрприз для получателя',
+    },
   ]
 
   return (
-    <div className="delivery-info">
-      {deliveryItems.map((item, index) => (
-        <div key={index} className="delivery-item">
-          <span className="delivery-icon">{item.icon}</span>
-          <div className="delivery-text">
-            <p className="delivery-title">{item.title}</p>
-            <p className="delivery-desc">{item.description}</p>
+    <div className="pd-benefits">
+      {deliveryItems.map(({ Icon, title, description }) => (
+        <div className="pd-benefit" key={title}>
+          <span className="pd-benefit-icon"><Icon size={20} /></span>
+          <div>
+            <p className="pd-benefit-title">{title}</p>
+            <p className="pd-benefit-desc">{description}</p>
           </div>
         </div>
       ))}

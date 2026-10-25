@@ -12,7 +12,9 @@
 }
 
 .section-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: linear-gradient(135deg, #FF6B9D, #C44569);
   color: white;
   padding: 8px 20px;
@@ -105,11 +107,15 @@
 }
 
 .feature-icon {
-  font-size: 2.5rem;
-  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C44569;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 
 .feature-card:hover .feature-icon {
+  color: white;
   transform: scale(1.1);
 }
 
@@ -154,10 +160,6 @@
   .feature-icon-wrapper {
     width: 70px;
     height: 70px;
-  }
-
-  .feature-icon {
-    font-size: 2rem;
   }
 
   .feature-title {

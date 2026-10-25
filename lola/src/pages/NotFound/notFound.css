@@ -90,32 +90,42 @@
 
 .flower {
   position: absolute;
-  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
   animation: floatFlower 4s ease-in-out infinite;
   opacity: 0.6;
+}
+
+.flower svg {
+  width: 100%;
+  height: 100%;
 }
 
 .flower-1 {
   top: -30px;
   left: -30px;
+  color: #FF6B9D;
   animation-delay: 0s;
 }
 
 .flower-2 {
   top: -20px;
   right: -40px;
+  color: #C44569;
   animation-delay: 0.5s;
 }
 
 .flower-3 {
   bottom: -40px;
   left: -20px;
+  color: #FFA3C0;
   animation-delay: 1s;
 }
 
 .flower-4 {
   bottom: -30px;
   right: -30px;
+  color: #E75480;
   animation-delay: 1.5s;
 }
 
@@ -143,6 +153,7 @@
   }
 
   .flower {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
   }
 }

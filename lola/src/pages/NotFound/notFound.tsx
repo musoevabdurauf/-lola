@@ -1,3 +1,4 @@
+import { FlowerIcon } from '../../components/Icons/icons'
 import { Link } from 'react-router-dom'
 import './notFound.css'
 
@@ -16,10 +17,10 @@ const NotFound = () => {
           </Link>
         </div>
         <div className="not-found-decoration">
-          <div className="flower flower-1">🌸</div>
-          <div className="flower flower-2">🌹</div>
-          <div className="flower flower-3">💐</div>
-          <div className="flower flower-4">🌺</div>
+          <div className="flower flower-1"><FlowerIcon /></div>
+          <div className="flower flower-2"><FlowerIcon /></div>
+          <div className="flower flower-3"><FlowerIcon /></div>
+          <div className="flower flower-4"><FlowerIcon /></div>
         </div>
       </div>
     </div>

@@ -1,23 +1,17 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../ProductCard/productcard'
+import ProductCardSkeleton from '../ProductCardSkeleton/productCardSkeleton'
+import { ArrowRightIcon } from '../Icons/icons'
+import type { Product } from '../../types'
 import './featuredProducts.css'
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  badge: string
-  isNew: boolean
-  isHit: boolean
-  image?: string
-}
 
 interface FeaturedProductsProps {
   products: Product[]
+  loading?: boolean
 }
 
-const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
+const FeaturedProducts = ({ products, loading = false }: FeaturedProductsProps) => {
   const [visibleCount, setVisibleCount] = useState(8)
   const visibleProducts = products.slice(0, visibleCount)
   const hasMore = products.length > visibleCount
@@ -37,32 +31,33 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
           </div>
           <Link to="/catalog" className="featured-view-all">
             <span>Смотреть все</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.16667 10H15.8333M15.8333 10L10 4.16667M15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <ArrowRightIcon size={18} />
           </Link>
         </div>
 
         <div className="featured-products-grid">
-          {visibleProducts.map((product, index) => {
-            const batchIndex = index % 8
-            return (
-              <div key={product.id} className="product-wrapper" style={{ animationDelay: `${batchIndex * 0.05}s` }}>
-                <ProductCard
-                  id={product.id}
-                  name={product.name}
-                  price={product.price}
-                  badge={product.badge}
-                  isNew={product.isNew}
-                  isHit={product.isHit}
-                  image={product.image}
-                />
-              </div>
-            )
-          })}
+          {loading
+            ? <ProductCardSkeleton count={8} />
+            : visibleProducts.map((product, index) => {
+              const batchIndex = index % 8
+              return (
+                <div key={product.id} className="product-wrapper" style={{ animationDelay: `${batchIndex * 0.05}s` }}>
+                  <ProductCard
+                    id={product.id}
+                    name={product.name}
+                    price={product.price}
+                    badge={product.badge}
+                    isNew={product.isNew}
+                    isHit={product.isHit}
+                    image={product.image}
+                    stock={product.stock}
+                  />
+                </div>
+              )
+            })}
         </div>
 
-        {hasMore && (
+        {!loading && hasMore && (
           <div className="featured-load-more">
             <button className="load-more-btn" onClick={loadMore}>
               Показать еще

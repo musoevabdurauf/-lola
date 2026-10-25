@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Api from '../../services/Api'
+import { categoriesApi } from '../../services/CategoriesApi'
 import { clearAuthToken, isAuthenticated } from '../../services/http'
-import type { Product } from '../../types'
+import { AlertCircleIcon, CheckCircleIcon, SearchIcon } from '../../components/Icons/icons'
+import type { Category, Product } from '../../types'
 import AdminNavbar from './components/AdminNavbar/adminNavbar'
 import AdminHeader from './components/AdminHeader/adminHeader'
 import AdminTable from './components/AdminTable/adminTable'
@@ -10,9 +12,25 @@ import AdminModal from './components/AdminModal/adminModal'
 import AdminStats from './components/AdminStats/adminStats'
 import './admin.css'
 
+const emptyForm: Partial<Product> = {
+  name: '',
+  price: 0,
+  description: '',
+  badge: '',
+  isNew: false,
+  isHit: false,
+  category: 'bukety',
+  composition: '',
+  height: '',
+  care: '',
+  image: '',
+  stock: 0,
+}
+
 const Admin = () => {
   const navigate = useNavigate()
   const [products, setProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
@@ -21,19 +39,7 @@ const Admin = () => {
   const [notification, setNotification] = useState<{ type: 'success' | 'error', message: string } | null>(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [productToDelete, setProductToDelete] = useState<string | null>(null)
-  const [formData, setFormData] = useState<Partial<Product>>({
-    name: '',
-    price: 0,
-    description: '',
-    badge: '',
-    isNew: false,
-    isHit: false,
-    category: 'bukety',
-    composition: '',
-    height: '',
-    care: '',
-    image: ''
-  })
+  const [formData, setFormData] = useState<Partial<Product>>(emptyForm)
 
   const refreshProducts = async () => {
     try {
@@ -52,14 +58,18 @@ const Admin = () => {
 
     let cancelled = false
 
-    const loadProducts = async () => {
+    const loadData = async () => {
       try {
-        const data = await Api.getProducts()
+        const [productsData, categoriesData] = await Promise.all([
+          Api.getProducts(),
+          categoriesApi.getCategories(),
+        ])
         if (!cancelled) {
-          setProducts(data)
+          setProducts(productsData)
+          setCategories(categoriesData)
         }
       } catch (error) {
-        console.error('Error fetching products:', error)
+        console.error('Error fetching admin data:', error)
       } finally {
         if (!cancelled) {
           setLoading(false)
@@ -67,7 +77,7 @@ const Admin = () => {
       }
     }
 
-    loadProducts()
+    loadData()
 
     return () => {
       cancelled = true
@@ -87,19 +97,7 @@ const Admin = () => {
   })
 
   const resetForm = () => {
-    setFormData({
-      name: '',
-      price: 0,
-      description: '',
-      badge: '',
-      isNew: false,
-      isHit: false,
-      category: 'bukety',
-      composition: '',
-      height: '',
-      care: '',
-      image: ''
-    })
+    setFormData(emptyForm)
     setEditingProduct(null)
   }
 
@@ -162,10 +160,14 @@ const Admin = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    })
+    const isNumericField = name === 'price' || name === 'stock'
+    const nextValue = type === 'checkbox'
+      ? (e.target as HTMLInputElement).checked
+      : isNumericField
+        ? Number(value)
+        : value
+
+    setFormData((prev) => ({ ...prev, [name]: nextValue }) as Partial<Product>)
   }
 
   if (loading) {
@@ -190,29 +192,33 @@ const Admin = () => {
         <AdminHeader onCreate={handleCreate} />
         <AdminStats products={products} />
         <div className="admin-filters">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="🔍 Поиск по названию или ID..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="search-wrapper">
+            <SearchIcon size={18} />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Поиск по названию или ID..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
           <select
             className="filter-select"
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
           >
             <option value="all">Все категории</option>
-            <option value="bukety">Букеты</option>
-            <option value="rozy">Розы</option>
-            <option value="tulpany">Тюльпаны</option>
-            <option value="kompozitsii">Композиции</option>
-            <option value="korziny">Корзины</option>
-            <option value="svadebnye">Свадебные</option>
+            {categories.map((category) => {
+              const slug = category.path.split('/').pop() ?? String(category.id)
+              return (
+                <option key={category.id} value={slug}>{category.name}</option>
+              )
+            })}
           </select>
         </div>
         <AdminTable
           products={filteredProducts}
+          categories={categories}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
@@ -221,13 +227,17 @@ const Admin = () => {
         isOpen={isModalOpen}
         editingProduct={editingProduct}
         formData={formData}
+        categories={categories}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleSubmit}
         onChange={handleInputChange}
       />
       {notification && (
         <div className={`notification notification-${notification.type}`}>
-          {notification.type === 'success' ? '✅' : '❌'} {notification.message}
+          {notification.type === 'success'
+            ? <CheckCircleIcon size={18} />
+            : <AlertCircleIcon size={18} />}
+          {notification.message}
         </div>
       )}
       {isDeleteModalOpen && (

@@ -8,6 +8,7 @@ import ProductDetails from '../../components/ProductDetails/productDetails'
 import QuantitySelector from '../../components/QuantitySelector/quantitySelector'
 import OrderSection from '../../components/OrderSection/orderSection'
 import DeliveryInfo from '../../components/DeliveryInfo/deliveryInfo'
+import { ArrowLeftIcon, ChevronRightIcon, FlowerIcon } from '../../components/Icons/icons'
 import './productDetail.css'
 
 const ProductDetail = () => {
@@ -45,38 +46,74 @@ const ProductDetail = () => {
     }
   }, [id])
 
-  if (!id) {
-    return <div className="product-detail">Продукт не найден</div>
+  if (loading) {
+    return (
+      <div className="product-detail">
+        <div className="product-detail-container" aria-hidden="true">
+          <div className="pd-skeleton pd-skeleton-breadcrumbs" />
+          <div className="pd-content">
+            <div className="pd-skeleton pd-skeleton-image" />
+            <div className="pd-info">
+              <div className="pd-skeleton pd-skeleton-line pd-skeleton-short" />
+              <div className="pd-skeleton pd-skeleton-title" />
+              <div className="pd-skeleton pd-skeleton-price" />
+              <div className="pd-skeleton pd-skeleton-text" />
+              <div className="pd-skeleton pd-skeleton-text pd-skeleton-text-short" />
+              <div className="pd-skeleton pd-skeleton-specs" />
+              <div className="pd-skeleton pd-skeleton-order" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
+
+  if (!id || !product) {
+    return (
+      <div className="product-detail">
+        <div className="product-detail-container">
+          <div className="pd-error">
+            <span className="pd-error-icon"><FlowerIcon size={42} /></span>
+            <h1>Букет не найден</h1>
+            <p>Возможно, он уже продан или ссылка устарела. Посмотрите другие букеты в каталоге.</p>
+            <Link to="/catalog" className="pd-error-link">
+              <ArrowLeftIcon size={17} />
+              Вернуться в каталог
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const stock = product.stock ?? 0
 
   const handleQuantityChange = (delta: number) => {
-    setQuantity(Math.max(1, quantity + delta))
-  }
-
-  const totalPrice = product ? (product.price * quantity).toLocaleString('ru-RU') : '0'
-
-  if (loading) {
-    return <div className="product-detail">Загрузка...</div>
-  }
-
-  if (!product) {
-    return <div className="product-detail">Продукт не найден</div>
+    const next = quantity + delta
+    setQuantity(Math.min(Math.max(1, next), Math.max(1, stock)))
   }
 
   return (
     <div className="product-detail">
       <div className="product-detail-container">
-        <Link to="/catalog" className="back-link">← Вернуться в каталог</Link>
+        <nav className="pd-breadcrumbs" aria-label="Хлебные крошки">
+          <Link to="/">Главная</Link>
+          <ChevronRightIcon size={14} />
+          <Link to="/catalog">Каталог</Link>
+          <ChevronRightIcon size={14} />
+          <span>{product.name}</span>
+        </nav>
 
-        <div className="product-content">
+        <div className="pd-content">
           <ProductImage
             image={product.image}
             badge={product.badge}
             isNew={product.isNew}
             isHit={product.isHit}
+            name={product.name}
           />
 
-          <div className="product-info-wrapper">
+          <div className="pd-info">
             <ProductInfo
               name={product.name}
               price={product.price}
@@ -84,6 +121,7 @@ const ProductDetail = () => {
               isNew={product.isNew}
               isHit={product.isHit}
               description={product.description}
+              stock={product.stock}
             />
 
             <ProductDetails
@@ -92,13 +130,13 @@ const ProductDetail = () => {
               care={product.care}
             />
 
-            <div className="product-actions">
+            <div className="pd-purchase">
               <QuantitySelector
                 quantity={quantity}
                 onQuantityChange={handleQuantityChange}
+                max={stock}
               />
-
-              <OrderSection totalPrice={totalPrice} />
+              <OrderSection product={product} quantity={quantity} />
             </div>
 
             <DeliveryInfo />

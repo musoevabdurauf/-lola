@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { categoriesApi } from '../../services/CategoriesApi'
+import { ArrowRightIcon, ChevronDownIcon } from '../Icons/icons'
 import type { Category } from '../../types'
 import './categories.css'
 
@@ -78,7 +79,7 @@ const Categories = () => {
               </div>
               <h3 className="category-name">{category.name}</h3>
               <span className="category-count">{category.count}</span>
-              <div className="category-arrow">→</div>
+              <div className="category-arrow"><ArrowRightIcon size={22} /></div>
             </Link>
           ))}
         </div>
@@ -89,16 +90,10 @@ const Categories = () => {
             className="categories-view-all"
           >
             <span>{showAll ? 'Свернуть' : 'Все категории'}</span>
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <ChevronDownIcon
+              size={20}
               style={{ transform: showAll ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
-            >
-              <path d="M4.16667 10H15.8333M15.8333 10L10 4.16667M15.8333 10L10 15.8333" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            />
           </button>
         )}
       </div>

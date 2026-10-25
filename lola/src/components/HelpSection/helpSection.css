@@ -128,12 +128,11 @@
 }
 
 .help-arrow {
-  font-size: 1.5rem;
+  display: flex;
   color: #FF6B9D;
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
-  font-weight: 700;
   flex-shrink: 0;
 }
 
