@@ -1,11 +1,12 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
-const { requireAuth } = require('../auth');
+const { requireRole } = require('../auth');
 
 const router = express.Router();
 const categoriesPath = path.join(__dirname, '../data/categories.json');
 const productsPath = path.join(__dirname, '../data/products.json');
+const contentAccess = requireRole('owner', 'manager', 'content');
 
 // Helper function to get category name from path
 function getCategorySlug(path) {
@@ -55,7 +56,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create category
-router.post('/', requireAuth, async (req, res) => {
+router.post('/', contentAccess, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);
@@ -74,7 +75,7 @@ router.post('/', requireAuth, async (req, res) => {
 });
 
 // PUT update category
-router.put('/:id', requireAuth, async (req, res) => {
+router.put('/:id', contentAccess, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);
@@ -93,7 +94,7 @@ router.put('/:id', requireAuth, async (req, res) => {
 });
 
 // DELETE category
-router.delete('/:id', requireAuth, async (req, res) => {
+router.delete('/:id', contentAccess, async (req, res) => {
   try {
     const data = await fs.readFile(categoriesPath, 'utf8');
     const categories = JSON.parse(data);

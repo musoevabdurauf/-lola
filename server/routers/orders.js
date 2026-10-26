@@ -2,11 +2,13 @@ const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
-const { requireAuth } = require('../auth');
+const { requireRole } = require('../auth');
+const { orderLimiter } = require('../rateLimit');
 
 const router = express.Router();
 const ordersPath = path.join(__dirname, '../data/orders.json');
 const productsPath = path.join(__dirname, '../data/products.json');
+const ordersAccess = requireRole('owner', 'manager');
 
 const ORDER_STATUSES = ['new', 'confirmed', 'delivered', 'cancelled'];
 
@@ -31,7 +33,7 @@ function cleanText(value, maxLength) {
 }
 
 // POST create order (public - customers are not authenticated)
-router.post('/', async (req, res) => {
+router.post('/', orderLimiter, async (req, res) => {
   try {
     const { productId } = req.body || {};
     const quantity = Number(req.body?.quantity);
@@ -93,7 +95,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET all orders
-router.get('/', requireAuth, async (req, res) => {
+router.get('/', ordersAccess, async (req, res) => {
   try {
     const orders = await readJson(ordersPath);
     const { status } = req.query;
@@ -111,7 +113,7 @@ router.get('/', requireAuth, async (req, res) => {
 });
 
 // PATCH update order status
-router.patch('/:id', requireAuth, async (req, res) => {
+router.patch('/:id', ordersAccess, async (req, res) => {
   try {
     const { status } = req.body || {};
     if (!ORDER_STATUSES.includes(status)) {
@@ -135,7 +137,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
 });
 
 // DELETE order
-router.delete('/:id', requireAuth, async (req, res) => {
+router.delete('/:id', ordersAccess, async (req, res) => {
   try {
     const orders = await readJson(ordersPath);
     const index = orders.findIndex((order) => order.id === req.params.id);

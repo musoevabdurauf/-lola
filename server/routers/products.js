@@ -1,10 +1,11 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
-const { requireAuth } = require('../auth');
+const { requireRole } = require('../auth');
 
 const router = express.Router();
 const dataFilePath = path.join(__dirname, '../data/products.json');
+const contentAccess = requireRole('owner', 'manager', 'content');
 
 // Helper function to read products
 async function readProducts() {
@@ -54,7 +55,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create new product
-router.post('/', requireAuth, async (req, res) => {
+router.post('/', contentAccess, async (req, res) => {
   try {
     const products = await readProducts();
     const newProduct = {
@@ -72,7 +73,7 @@ router.post('/', requireAuth, async (req, res) => {
 });
 
 // PUT update product
-router.put('/:id', requireAuth, async (req, res) => {
+router.put('/:id', contentAccess, async (req, res) => {
   try {
     const products = await readProducts();
     const index = products.findIndex(p => p.id === req.params.id);
@@ -91,7 +92,7 @@ router.put('/:id', requireAuth, async (req, res) => {
 });
 
 // DELETE product
-router.delete('/:id', requireAuth, async (req, res) => {
+router.delete('/:id', contentAccess, async (req, res) => {
   try {
     const products = await readProducts();
     const index = products.findIndex(p => p.id === req.params.id);
